@@ -1,5 +1,41 @@
 .navbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2%;
   height: 60px;
   width: 100%;
   background-color: hsl(215, 15%, 30%);
+}
+
+.navbar__right{
+  .auth-option{
+    height: 35px;
+    width: 100px;
+    border: 1px solid transparent;
+    border-radius: 5px;;
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    box-shadow: 5px 5px 5px hsl(215, 15%, 20%);
+    transition: all 100ms ease-in-out;
+  }
+  .log-out__button{
+    background-color: hsl(17, 80%, 60%);
+    &:hover{
+      background-color: hsl(17, 80%, 65%);
+    }
+    &:active{
+      background-color: hsl(17, 80%, 62%);
+    }
+  }
+  .login__button{
+    background-color: hsl(197, 80%, 48%);
+    &:hover{
+      background-color: hsl(197, 80%, 53%);
+    }
+    &:active{
+      background-color: hsl(197, 80%, 45%);
+    }
+  }
 }
