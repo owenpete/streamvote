@@ -1,7 +1,7 @@
 import tmi from 'tmi.js';
 
 const prefix: string = '';
-const messageLimit: number = 50;
+const maxChatSize: number = 50;
 
 let messages: any[] = [{}];
 
@@ -11,7 +11,7 @@ const client = new tmi.Client({
 
 const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{
 
-  if(messages.length >= messageLimit){
+  if(messages.length >= maxChatSize){
     messages.shift();
   }
   messages.push({user: tags.username, message: msg})
