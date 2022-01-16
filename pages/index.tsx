@@ -6,13 +6,19 @@ import Navbar from '../components/Navbar';
 
 import { useEffect, useState } from 'react';
 import tmi from 'tmi.js';
-import msgs from '../utils/tmi'; 
+import { messages } from '../utils/tmi'; 
+
+interface ChatData{
+  messages: any[];
+}
 
 const Home: NextPage = () => {
-  const [messages, setMessages] = useState<any>({messages: []});
+  const [chatData, setChatData] = useState<ChatData>({messages: []});
   useEffect(()=>{
     let timerFunc = setInterval(() => {
-        setMessages({messages: msgs});
+        setChatData({
+          messages: messages
+        });
     }, 1000);
     return () => clearInterval(timerFunc)
   });
@@ -30,9 +36,9 @@ const Home: NextPage = () => {
       />
       <div style={{padding: '5rem', color: 'white'}}>
         {
-          messages.messages.map((value: any, index: number)=>{
+          chatData.messages.map((value: any, index: number)=>{
             return (
-              <span key={index}>{value}<br/></span>
+              <span key={index}>{value.message}<br/></span>
             )
           })
         }
