@@ -7,20 +7,22 @@ interface Props{
 const ChatBox = (props: Props) =>{
   return (
     <div className='chat-box'>
-      {props.chatData != undefined &&
-        props.chatData.messages.map((value: any)=>{
-          return (
-            <span className='chat-box__message'>
-              <span className='message__username' style={{color: `${value.userColor}`}}>
-                {value.username}<span style={{color: 'white'}}>:</span>
-                </span>
-                <span className='message__text'>
-                  {value.message}
-                </span>
-            </span>
-          )
-        })
-      }
+      <div className='chat-box__chat'>
+        {props.chatData != undefined &&
+          props.chatData.messages.map((value: any)=>{
+            return (
+              <span className='chat-box__message'>
+                <span className='message__username' style={{color: `${value.userColor}`}}>
+                  {value.username}<span style={{color: 'white'}}>:</span>
+                  </span>
+                  <span className='message__text'>
+                    {value.message}
+                  </span>
+              </span>
+            )
+          })
+        }
+      </div>
     </div>
   );
 }

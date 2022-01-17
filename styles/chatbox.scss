@@ -1,12 +1,17 @@
 .chat-box{
-  display: flex;
-  flex-direction: column-reverse;
   height: 600px;
   max-height: 600px;
   width: 600px;
-  background-color: hsl(215, 15%, 28%);
-  border-radius: 5px;
   padding: 2rem;
+  background-color: hsl(215, 15%, 28%);
+}
+
+.chat-box__chat{
+  display: flex;
+  flex-direction: column-reverse;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -22,6 +27,9 @@
 .chat-box__message{
   color: white;
   margin-bottom: 0.8rem;
+  &:first-child{
+    margin: 0;
+  }
   .message__username{
     margin-right: 0.5rem;
   }

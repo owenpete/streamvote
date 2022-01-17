@@ -6,7 +6,7 @@ const maxChatSize: number = 50;
 let messages: any[] = [];
 
 const client = new tmi.Client({
-  channels: ['nickmercs']
+  channels: ['stringplayergamer']
 });
 
 const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{

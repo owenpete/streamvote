@@ -35,9 +35,14 @@ const Home: NextPage = () => {
         isLoggedIn={false}
       />
       <div className="main">
+        <div className='main__left'>
+        </div>
         <ChatBox 
           chatData={chatData}
         /> 
+        <div className='main__right'>
+
+        </div>
       </div>
     </div>
   )
