@@ -1,8 +1,14 @@
+.index{
+  height: 100%;
+}
+
 .main{
   display: grid;
-  justify-content: center;
-  align-items: center;
+  justify-items: center;
+  align-content: center;
   grid-template-areas: 'vote-right chat vote-left';
+  grid-template-columns: 35% 30% 35%;
+  height: 100%;
 }
 
 .main__right{
