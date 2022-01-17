@@ -13,7 +13,12 @@ const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{
   if(messages.length >= maxChatSize){
     messages.pop();
   }
-  messages.unshift({user: tags.username, message: msg})
+  messages.unshift({
+    displayName: tags.diaplayName,
+    username: tags.username, 
+    userColor: tags.color,
+    message: msg
+  })
 }
 
 client.on('message', onMessageHandler)
