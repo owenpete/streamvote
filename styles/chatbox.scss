@@ -18,9 +18,14 @@
     background-clip: content-box;
     background-color: hsl(220, 13%, 20%);
   }
+}
+.chat-box__message{
+  color: white;
+  margin-bottom: 0.8rem;
+  .message__username{
+    margin-right: 0.5rem;
+  }
+  .message__text{
 
-  &__message{
-    color: white;
-    margin-bottom: 0.8rem;
   }
 }

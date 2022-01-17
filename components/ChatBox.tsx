@@ -11,7 +11,12 @@ const ChatBox = (props: Props) =>{
         props.chatData.messages.map((value: any)=>{
           return (
             <span className='chat-box__message'>
-              {value.user}: {value.message}
+              <span className='message__username' style={{color: `${value.userColor}`}}>
+                {value.username}<span style={{color: 'white'}}>:</span>
+                </span>
+                <span className='message__text'>
+                  {value.message}
+                </span>
             </span>
           )
         })
