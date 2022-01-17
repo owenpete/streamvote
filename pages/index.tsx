@@ -3,9 +3,9 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 import Navbar from '../components/Navbar';
+import ChatBox from '../components/ChatBox';
 
 import { useEffect, useState } from 'react';
-import tmi from 'tmi.js';
 import { messages } from '../utils/tmi'; 
 
 interface ChatData{
@@ -13,7 +13,7 @@ interface ChatData{
 }
 
 const Home: NextPage = () => {
-  const [chatData, setChatData] = useState<ChatData>({messages: []});
+  const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
   useEffect(()=>{
     let timerFunc = setInterval(() => {
         setChatData({
@@ -34,14 +34,10 @@ const Home: NextPage = () => {
       <Navbar 
         isLoggedIn={false}
       />
-      <div style={{padding: '5rem', color: 'white'}}>
-        {
-          chatData.messages.map((value: any, index: number)=>{
-            return (
-              <span key={index}>{value.message}<br/></span>
-            )
-          })
-        }
+      <div className="main">
+        <ChatBox 
+          chatData={chatData}
+        /> 
       </div>
     </div>
   )
