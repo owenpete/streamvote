@@ -14,6 +14,7 @@ interface ChatData{
 
 const Home: NextPage = () => {
   const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
+  const [voteCategories, setVoteCategories] = useState<any>([]);
   useEffect(()=>{
     let timerFunc = setInterval(() => {
         setChatData({
