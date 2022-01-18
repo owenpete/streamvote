@@ -7,6 +7,7 @@ import ChatBox from '../components/ChatBox';
 
 import { useEffect, useState } from 'react';
 import { messages } from '../utils/tmi'; 
+import Leaderboard from '../components/Leaderboard';
 
 interface ChatData{
   messages: any[];
@@ -15,6 +16,7 @@ interface ChatData{
 const Home: NextPage = () => {
   const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
   const [voteCategories, setVoteCategories] = useState<any>([]);
+  const [leaderboard, setLeaderboard] = useState<any>([]);
   useEffect(()=>{
     let timerFunc = setInterval(() => {
         setChatData({
@@ -38,9 +40,14 @@ const Home: NextPage = () => {
       <div className="main">
         <div className='main__left'>
         </div>
-        <ChatBox 
-          chatData={chatData}
-        /> 
+        <div className="main__center">
+          <Leaderboard 
+            leaderboard={['first', 'second']}
+          />
+          <ChatBox 
+            chatData={chatData}
+          /> 
+        </div>
         <div className='main__right'>
 
         </div>
