@@ -8,6 +8,7 @@ import ChatBox from '../components/ChatBox';
 import { useEffect, useState } from 'react';
 import { messages } from '../utils/tmi'; 
 import Leaderboard from '../components/Leaderboard';
+import Timer from '../components/Timer';
 
 interface ChatData{
   messages: any[];
@@ -35,6 +36,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="main">
+        <Timer
+          isEnabled={true}
+          isRunning={false}
+        />
         <Leaderboard 
           leaderboard={['first', 'second']}
         />

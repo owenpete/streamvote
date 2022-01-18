@@ -3,6 +3,7 @@ import '../styles/index.scss';
 import '../styles/chatbox.scss';
 import '../styles/navbar.scss';
 import '../styles/voteItem.scss';
+import '../styles/timer.scss';
 import '../styles/leaderboard.scss';
 import type { AppProps } from 'next/app'
 

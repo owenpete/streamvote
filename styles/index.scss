@@ -7,10 +7,18 @@
   justify-items: center;
   align-content: center;
   grid-template-areas: 
+    '... timer ...' 
     '... leaderboard ...' 
     'vote-right chat vote-left';
   grid-template-columns: 35% 30% 35%;
   grid-template-rows: auto auto;
+  grid-row-gap: 2rem;
+  grid-column-gap: 2rem;
+  height: 100%;
+}
+
+.timer{
+  grid-area: timer;
 }
 
 .leaderboard{
