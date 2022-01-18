@@ -6,9 +6,15 @@
   display: grid;
   justify-items: center;
   align-content: center;
-  grid-template-areas: 'vote-right chat vote-left';
+  grid-template-areas: 
+    '... leaderboard ...' 
+    'vote-right chat vote-left';
   grid-template-columns: 35% 30% 35%;
-  height: 100%;
+  grid-template-rows: auto auto;
+}
+
+.leaderboard{
+  grid-area: leaderboard;
 }
 
 .main__right{

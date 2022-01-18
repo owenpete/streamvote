@@ -35,12 +35,12 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="main">
+        <Leaderboard 
+          leaderboard={['first', 'second']}
+        />
         <div className='main__left'>
         </div>
         <div className="main__center">
-          <Leaderboard 
-            leaderboard={['first', 'second']}
-          />
           <ChatBox 
             chatData={chatData}
           /> 
