@@ -1,14 +1,20 @@
 import { useEffect } from 'react';
 
 interface Props{
+  isCreatingNew: boolean;
 }
 
-const newCategoryPopup = (props: Props) =>{
+const NewCategoryPopup = (props: Props) =>{
   return (
-    <div className='new-category'>
+    <>
+      {
+        props.isCreatingNew&&
+          <div className='new-category'>
 
-    </div>
+          </div>
+      }
+    </>
   );
 }
 
-export default newCategoryPopup;
+export default NewCategoryPopup;

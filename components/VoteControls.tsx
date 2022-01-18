@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
+import toggleDimmer from '../utils/toggleDimmer';
 
 interface Props{
   addVotingCategory: any;
+  setIsCreatingNew: any;
+  isCreatingNew: boolean;
 }
 
 const VoteControls = (props: Props) =>{
@@ -30,6 +33,11 @@ const VoteControls = (props: Props) =>{
   const handleFilter = (categoryCount: string) =>{
     setCategoryCount(+categoryCount);
   }
+
+  useEffect(()=>{
+    toggleDimmer(props.isCreatingNew);
+  }, [props.isCreatingNew])
+  
   return (
     <div className='vote-controls'>
       <div className='resbar__filter'>
@@ -55,7 +63,7 @@ const VoteControls = (props: Props) =>{
         className='vote-controls__add-new-button'
         type="button"
         value="Add New"
-        onClick={()=>props.addVotingCategory({name: Math.random(), color: 'blue'})}
+        onClick={()=>props.setIsCreatingNew(true)}
       />
     </div>
   );

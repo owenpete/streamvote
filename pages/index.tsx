@@ -1,15 +1,17 @@
+import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 
 import Navbar from '../components/Navbar';
 import ChatBox from '../components/ChatBox';
-
-import { useEffect, useState } from 'react';
-import { getCategories, messages, addCategory } from '../utils/tmi'; 
 import Leaderboard from '../components/Leaderboard';
 import Timer from '../components/Timer';
 import VoteControls from '../components/VoteControls';
+import NewCategoryPopup from '../components/NewCategoryPopup';
+
+import { getCategories, messages, addCategory } from '../utils/tmi'; 
+import toggleDimmer from '../utils/toggleDimmer';
 
 interface ChatData{
   messages: any[];
@@ -20,6 +22,7 @@ const Home: NextPage = () => {
   const [voteingCategories, setVoteingCategories] = useState<any>([]);
   const [leaderboard, setLeaderboard] = useState<any>([]);
   const [isTimerRunning, setTimer] = useState<boolean>(false);
+  const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
 
   useEffect(()=>{
     setVoteingCategories(getCategories());
@@ -50,9 +53,14 @@ const Home: NextPage = () => {
         <meta name="viewport" content="width=device-width, maximum-scale=1, maximum-scale=1.0, user-scalable=0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NewCategoryPopup 
+        isCreatingNew={isCreatingNew}
+      />
       <div className="main">
         <VoteControls 
           addVotingCategory={addVotingCategory}
+          setIsCreatingNew={setIsCreatingNew}
+          isCreatingNew={isCreatingNew}
         />
         <Timer
           isRunning={isTimerRunning}

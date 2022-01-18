@@ -10,7 +10,12 @@ import '../styles/newCategoryPopup.scss';
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <div id="dimmer"></div>
+      <Component {...pageProps} />
+    </>
+  )
 }
 
 export default MyApp

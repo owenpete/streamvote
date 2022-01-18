@@ -18,6 +18,14 @@
   margin: 0 2%;
 }
 
+#dimmer{
+  position: absolute;
+  pointer-events: none;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+}
+
 .timer{
   grid-area: timer;
 }
