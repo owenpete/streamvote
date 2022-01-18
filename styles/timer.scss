@@ -1,8 +1,25 @@
 .timer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: white;
   font-size: 48px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
+  margin-bottom: 0.35rem;
+  &__button{
+    width: 65%;
+    max-width: 150px;
+    min-width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+  }
+  &__start{
+    background-color: rgb(107, 209, 145);
+  }
+  &__stop{
+    background-color: hsl(8, 100%, 67%);
+  }
 }
