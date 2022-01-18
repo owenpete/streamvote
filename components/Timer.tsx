@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 interface Props{
-  isEnabled: boolean;
   isRunning: boolean;
+  setTimer: any;
 }
 
 const Timer = (props: Props) =>{
@@ -15,12 +15,14 @@ const Timer = (props: Props) =>{
           type='button'
           value='Stop'
           className='timer__stop timer__button'
+          onClick={()=>props.setTimer(false)}
         />
         :
         <input 
           type='button'
           value='Start'
           className='timer__start timer__button'
+          onClick={()=>props.setTimer(true)}
         />
       }
     </div>

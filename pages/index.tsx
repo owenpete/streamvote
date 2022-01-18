@@ -18,6 +18,7 @@ const Home: NextPage = () => {
   const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
   const [voteCategories, setVoteCategories] = useState<any>([]);
   const [leaderboard, setLeaderboard] = useState<any>([]);
+  const [isTimerRunning, setTimer] = useState<boolean>(false);
   useEffect(()=>{
     let timerFunc = setInterval(() => {
         setChatData({
@@ -37,8 +38,8 @@ const Home: NextPage = () => {
       </Head>
       <div className="main">
         <Timer
-          isEnabled={true}
-          isRunning={false}
+          isRunning={isTimerRunning}
+          setTimer={setTimer}
         />
         <Leaderboard 
           leaderboard={['first', 'second']}
