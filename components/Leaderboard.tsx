@@ -8,9 +8,12 @@ const Leaderboard = (props: Props) =>{
   return (
     <div className="leaderboard">
       {
-        props.leaderboard.map((value: any)=>{
+        props.leaderboard.map((value: any, index: number)=>{
           return (
-            <li className='leaderboard__item'>
+            <li 
+              className='leaderboard__item'
+              key={index}
+            >
               {value}
             </li>
           )

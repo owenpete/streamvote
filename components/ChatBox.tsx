@@ -9,9 +9,12 @@ const ChatBox = (props: Props) =>{
     <div className='chat-box'>
       <div className='chat-box__chat'>
         {props.chatData != undefined &&
-          props.chatData.messages.map((value: any)=>{
+          props.chatData.messages.map((value: any, index: number)=>{
             return (
-              <span className='chat-box__message'>
+              <span 
+                className='chat-box__message' 
+                key={index}
+              >
                 <span className='message__username' style={{color: `${value.userColor}`}}>
                   {value.username}<span style={{color: 'white'}}>:</span>
                   </span>
