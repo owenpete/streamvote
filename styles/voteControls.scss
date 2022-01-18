@@ -1,8 +1,22 @@
+$searchHeight: 30px;
+
+.vote-controls{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: $searchHeight;
+  &__add-new-button{
+    margin-left: 1rem;
+    border-radius: 5px;
+    border: none;
+  }
+}
+
 .resbar__filter{
   display: flex;
   align-items: center;
   position: relative;
-  $searchHeight: 30px;
+  width: fit-content;
   .resbar__dropdown-button{
     height: $searchHeight;
     width: auto;

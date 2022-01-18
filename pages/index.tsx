@@ -6,9 +6,10 @@ import Navbar from '../components/Navbar';
 import ChatBox from '../components/ChatBox';
 
 import { useEffect, useState } from 'react';
-import { messages } from '../utils/tmi'; 
+import { getCategories, messages, addCategory } from '../utils/tmi'; 
 import Leaderboard from '../components/Leaderboard';
 import Timer from '../components/Timer';
+import VoteControls from '../components/VoteControls';
 
 interface ChatData{
   messages: any[];
@@ -16,17 +17,30 @@ interface ChatData{
 
 const Home: NextPage = () => {
   const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
-  const [voteCategories, setVoteCategories] = useState<any>([]);
+  const [voteingCategories, setVoteingCategories] = useState<any>([]);
   const [leaderboard, setLeaderboard] = useState<any>([]);
   const [isTimerRunning, setTimer] = useState<boolean>(false);
+
+  useEffect(()=>{
+    setVoteingCategories(getCategories());
+  },[])
+
   useEffect(()=>{
     let timerFunc = setInterval(() => {
-        setChatData({
-          messages: messages
-        });
+      setChatData({
+        messages: messages
+      });
     }, 1000);
     return () => clearInterval(timerFunc)
   });
+
+  const addVotingCategory = (category: any) =>{
+    if(voteingCategories.length < 3){
+      setVoteingCategories([...voteingCategories, category]);
+    }else{
+      setVoteingCategories([...voteingCategories.slice(1), category]);
+    }
+  }
 
   return (
     <div className='index'>
@@ -37,12 +51,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="main">
+        <VoteControls 
+          addVotingCategory={addVotingCategory}
+        />
         <Timer
           isRunning={isTimerRunning}
           setTimer={setTimer}
         />
         <Leaderboard 
-          leaderboard={['first', 'second']}
+          leaderboard={voteingCategories}
         />
         <div className='main__left'>
         </div>

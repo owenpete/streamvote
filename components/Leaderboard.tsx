@@ -14,7 +14,7 @@ const Leaderboard = (props: Props) =>{
               className='leaderboard__item'
               key={index}
             >
-              {value}
+              <span className='item__number'>{index+1}.</span>{value.name}
             </li>
           )
         })

@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 
-const VoteControls = () =>{
+interface Props{
+  addVotingCategory: any;
+}
+
+const VoteControls = (props: Props) =>{
     const filterCategories = [
     {
       name:'2',
@@ -47,6 +51,12 @@ const VoteControls = () =>{
           }
         </select>
       </div>
+      <input 
+        className='vote-controls__add-new-button'
+        type="button"
+        value="Add New"
+        onClick={()=>props.addVotingCategory({name: Math.random(), color: 'blue'})}
+      />
     </div>
   );
 }

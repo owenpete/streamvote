@@ -2,12 +2,26 @@ import tmi from 'tmi.js';
 
 const prefix: string = '';
 const maxChatSize: number = 50;
+let isVoting: boolean = false;
+let votingCategories: any[] = [];
 
 let messages: any[] = [];
 
 const client = new tmi.Client({
-  channels: ['shroud']
+  channels: ['ninja']
 });
+
+export const addCategory = (name: string, color: string) =>{
+  votingCategories.push({name: name, color: color});
+  return votingCategories;
+}
+
+export const removeCategory = (name: string) => {
+}
+
+export const getCategories = ()=>{
+  return (votingCategories);
+}
 
 const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{
   if(messages.length >= maxChatSize){

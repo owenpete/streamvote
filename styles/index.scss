@@ -7,7 +7,7 @@
   justify-items: center;
   align-content: center;
   grid-template-areas: 
-    '... timer ...' 
+    'controls timer ...' 
     '... leaderboard ...' 
     'vote-right chat vote-left';
   grid-template-columns: 35% 30% 35%;
@@ -15,10 +15,15 @@
   grid-row-gap: 2rem;
   grid-column-gap: 2rem;
   height: 100%;
+  margin: 0 2%;
 }
 
 .timer{
   grid-area: timer;
+}
+
+.vote-controls{
+  grid-area: controls;
 }
 
 .leaderboard{
