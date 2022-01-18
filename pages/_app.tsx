@@ -6,6 +6,7 @@ import '../styles/voteItem.scss';
 import '../styles/timer.scss';
 import '../styles/leaderboard.scss';
 import '../styles/voteControls.scss';
+import '../styles/newCategoryPopup.scss';
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
