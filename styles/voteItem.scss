@@ -21,14 +21,14 @@
     color: gray;
     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='gray' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='35' stroke-linecap='square'/%3e%3c/svg%3e");
     background-color: transparent;
+    &:hover{
+      background-color: #a596ff;
+      color: white;
+      background-image: none;
+      outline: 5px solid white;
+    }
   }
   &:last-child{
     margin: 0;
-  }
-  &:hover{
-    background-color: #a596ff;
-    color: white;
-    background-image: none;
-    outline: 5px solid white;
   }
 }
