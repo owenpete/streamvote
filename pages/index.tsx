@@ -23,7 +23,26 @@ const Home: NextPage = () => {
   const [leaderboard, setLeaderboard] = useState<any>([]);
   const [isTimerRunning, setTimer] = useState<boolean>(false);
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
-  const maxCategoryLimit = 8;
+  const filterCategories = [
+    {
+      name:'2',
+    },
+    {
+      name:'4',
+    },
+    {
+      name:'6',
+    },
+    {
+      name:'8',
+    }
+  ];
+
+  const [categoryCount, setCategoryCount] = useState<any>(2);
+
+  const handleFilter = (categoryCount: string) =>{
+    setCategoryCount(+categoryCount);
+  }
 
   useEffect(()=>{
     setVoteingCategories(getCategories());
@@ -39,7 +58,7 @@ const Home: NextPage = () => {
   });
 
   const addVotingCategory = (category: any) =>{
-    if(voteingCategories.length < maxCategoryLimit){
+    if(voteingCategories.length < categoryCount){
       setVoteingCategories([...voteingCategories, category]);
     }else{
       throw('max categories reached');
@@ -64,6 +83,10 @@ const Home: NextPage = () => {
           addVotingCategory={addVotingCategory}
           setIsCreatingNew={setIsCreatingNew}
           isCreatingNew={isCreatingNew}
+          categoryCount={categoryCount}
+          setCategoryCount={setCategoryCount}
+          filterCategories={filterCategories}
+          handleFilter={handleFilter}
         />
         <Timer
           isRunning={isTimerRunning}

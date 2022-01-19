@@ -6,30 +6,13 @@ interface Props{
   addVotingCategory: any;
   setIsCreatingNew: any;
   isCreatingNew: boolean;
+  categoryCount: number;
+  setCategoryCount: any;
+  filterCategories: any;
+  handleFilter: any;
 }
 
 const VoteControls = (props: Props) =>{
-    const filterCategories = [
-    {
-      name:'2',
-    },
-    {
-      name:'4',
-    },
-    {
-      name:'6',
-    },
-    {
-      name:'8',
-    }
-  ];
-
-  const [categoryCount, setCategoryCount] = useState<any>(2);
-
-  const handleFilter = (categoryCount: string) =>{
-    setCategoryCount(+categoryCount);
-  }
-
   useEffect(()=>{
     toggleDimmer(props.isCreatingNew);
   }, [props.isCreatingNew])
@@ -37,17 +20,17 @@ const VoteControls = (props: Props) =>{
   return (
     <div className='vote-controls'>
       <div className='resbar__filter'>
-        <input className='resbar__dropdown-button' value={`# of categories: ${categoryCount}`} type='button' />
+        <input className='resbar__dropdown-button' value={`# of categories: ${props.categoryCount}`} type='button' />
         <FiChevronDown className='resbar__dropdown-arrow' />
         <select
           name='catagories'
           className='resbar__dropdown'
-          onChange={(e)=>{handleFilter(e.target.value)}}
-          value={categoryCount}
+          onChange={(e)=>{props.handleFilter(e.target.value)}}
+          value={props.categoryCount}
         >
           {
             //populating filters
-            filterCategories.map((value)=>{
+            props.filterCategories.map((value: any)=>{
               return (
                 <option value={value.name} key={Math.random()}>{value.name}</option>
               );
