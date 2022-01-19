@@ -49,16 +49,16 @@ const NewCategoryPopup = (props: Props) =>{
   ];
 
   const [name, setName] = useState<string>('');
-  const [color, setColor] = useState<string>('');
+  const [color, setColor] = useState<{ name: string, hex: string }>({ name: '', hex: '' });
 
   const resetPrompt = () =>{
     setName('');
-    setColor('');
+    setColor({name: '', hex: ''});
     props.setSlotIndex(undefined);
   }
 
-  const popupAddCategory = (name: string, color: string) =>{
-    if(name != '' && color != ''){
+  const popupAddCategory = (name: string, color: { name: string, hex: string }) =>{
+    if(name != '' && color.name != ''){
       if(props.slotIndex){
         props.addVotingCategory({ name: name, color: color }, props.slotIndex);
       }else{
@@ -104,8 +104,8 @@ const NewCategoryPopup = (props: Props) =>{
                       <div 
                         className='color-selector__color' 
                         style={{backgroundColor: `${value.hex}`}}
-                        data-color={value.hex}
-                        onClick={(e: any)=>setColor(e.target.dataset.color)}
+                        data-color={value.name}
+                        onClick={(e: any)=>setColor({name: e.target.dataset.color, hex: value.hex})}
                       ></div>
                     )
                   })

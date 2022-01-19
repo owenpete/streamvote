@@ -14,9 +14,17 @@ const VoteItem = (props: Props) =>{
       props.categoryData?
         <div
           className='vote-item'
-          style={{backgroundColor: `${props.categoryData.color}`}}
+          style={{backgroundColor: `${props.categoryData.color.hex}`}}
         >
-
+          <span 
+            className='vote-item__name'
+            style={{
+              color: `${props.categoryData.color.name == 'black'? 'white' : 'black'}`
+              }
+            }
+          >
+            {props.categoryData.name}
+          </span>
         </div>
       :
         <div 
