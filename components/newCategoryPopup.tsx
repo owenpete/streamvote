@@ -52,7 +52,7 @@ const NewCategoryPopup = (props: Props) =>{
     setColor('');
   }
 
-  const addVotingCategory = (name: string, color: string, setName: any, setColor: any) =>{
+  const popupAddCategory = (name: string, color: string, setName: any, setColor: any) =>{
     props.addVotingCategory({ name: name, color: color })
     resetPrompt();
     props.setIsCreatingNew(false);
@@ -106,7 +106,7 @@ const NewCategoryPopup = (props: Props) =>{
                   type="button"
                   value='Confirm'
                   className='actions__confirm actions'
-                  onClick={()=>addVotingCategory(name, color, setName, setColor)}
+                  onClick={()=>popupAddCategory(name, color, setName, setColor)}
                 />
                </div>
             </div>

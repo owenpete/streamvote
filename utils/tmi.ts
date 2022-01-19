@@ -11,15 +11,15 @@ const client = new tmi.Client({
   channels: ['summit1g']
 });
 
-export const addCategory = (category: { name: string, color: string}) =>{
+export const tmiAddCategory = (category: { name: string, color: string}) =>{
   votingCategories.push(category);
   return votingCategories;
 }
 
-export const removeCategory = (name: string) => {
+export const tmiRemoveCategory = (name: string) => {
 }
 
-export const getCategories = ()=>{
+export const tmiGetCategories = ()=>{
   return (votingCategories);
 }
 
