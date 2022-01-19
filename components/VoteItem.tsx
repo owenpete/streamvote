@@ -4,6 +4,7 @@ import { FiPlus } from 'react-icons/fi';
 interface Props{
   name: string;
   color: string;
+  setIsCreatingNew: any;
 }
 
 const VoteItem = (props: Props) =>{
@@ -11,6 +12,7 @@ const VoteItem = (props: Props) =>{
     <div 
       className='vote-item' 
       style={{backgroundColor: `${props.color}`}}
+      onClick={()=>props.setIsCreatingNew(true)}
       >
         <FiPlus />
     </div>

@@ -102,7 +102,7 @@ const Home: NextPage = () => {
               const location = index+index+1;
               return (
                 <VoteItem 
-
+                  setIsCreatingNew={setIsCreatingNew}
                 />
               );
             })
@@ -119,7 +119,7 @@ const Home: NextPage = () => {
               const location = index*2;
               return(
                 <VoteItem 
-
+                  setIsCreatingNew={setIsCreatingNew}
                 />
               )
             })
