@@ -5,6 +5,7 @@ interface Props{
   isCreatingNew: boolean;
   setIsCreatingNew: any;
   addVotingCategory: any;
+  slotIndex: number;
 }
 
 const NewCategoryPopup = (props: Props) =>{

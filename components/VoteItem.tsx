@@ -3,7 +3,8 @@ import { FiPlus } from 'react-icons/fi';
 
 interface Props{
   categoryData: any;
-  setIsCreatingNew: any;
+  openPopup: any;
+  index: number;
 }
 
 const VoteItem = (props: Props) =>{
@@ -20,7 +21,7 @@ const VoteItem = (props: Props) =>{
       :
         <div 
           className='vote-item vote-item--placeholder' 
-          onClick={()=>props.setIsCreatingNew(true)}
+          onClick={()=>{props.openPopup(props.index)}}
         >
             <FiPlus />
         </div>

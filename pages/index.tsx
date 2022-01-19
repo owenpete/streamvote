@@ -24,6 +24,7 @@ const Home: NextPage = () => {
   const [leaderboard, setLeaderboard] = useState<any>([]);
   const [isTimerRunning, setTimer] = useState<boolean>(false);
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
+  const [slotIndex, setSlotIndex] = useState<number>(0);
   const filterCategories = [
     {
       name:'2',
@@ -67,6 +68,11 @@ const Home: NextPage = () => {
     }
   }
 
+  const openPopup = (slotIndex: number) =>{
+    setSlotIndex(slotIndex);
+    setIsCreatingNew(true);
+  }
+
   return (
     <div className='index'>
       <Head>
@@ -79,6 +85,7 @@ const Home: NextPage = () => {
         isCreatingNew={isCreatingNew}
         setIsCreatingNew={setIsCreatingNew}
         addVotingCategory={addVotingCategory}
+        slotIndex={slotIndex}
       />
       <div className="main">
         <VoteControls 
@@ -104,8 +111,9 @@ const Home: NextPage = () => {
               const category = votingCategories[location];
               return (
                 <VoteItem 
-                  setIsCreatingNew={setIsCreatingNew}
+                  openPopup={openPopup}
                   categoryData={category}
+                  index={location}
                 />
               );
             })
@@ -123,8 +131,9 @@ const Home: NextPage = () => {
               const category = votingCategories[location];
               return(
                 <VoteItem 
-                  setIsCreatingNew={setIsCreatingNew}
+                  openPopup={openPopup}
                   categoryData={category}
+                  index={location}
                 />
               )
             })
