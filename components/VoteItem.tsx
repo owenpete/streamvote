@@ -19,7 +19,7 @@ const VoteItem = (props: Props) =>{
             backgroundColor: `${props.categoryData.color.hex}`,
             flexDirection: `${props.categoryCount > 6? 'row' : 'column'}`,
             justifyContent: `${props.categoryCount > 6? 'space-between' : 'space-evenly'}`,
-            fontSize: `${props.categoryCount > 6? '60px' : '68px'}`
+            fontSize: `${props.categoryCount > 6? '46px' : '54px'}`
          }}
         >
           <span 

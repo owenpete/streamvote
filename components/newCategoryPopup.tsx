@@ -48,8 +48,15 @@ const NewCategoryPopup = (props: Props) =>{
     },
   ];
 
+  const maxNameLength = 16;
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<{ name: string, hex: string }>({ name: '', hex: '' });
+
+  const handleNameUpdate = (name: string) =>{
+    if(name.length < maxNameLength){
+      setName(name);
+    }
+  }
 
   const resetPrompt = () =>{
     setName('');
@@ -93,7 +100,7 @@ const NewCategoryPopup = (props: Props) =>{
                 placeholder='Title'
                 value={name}
                 autoFocus={true}
-                onChange={(e: any)=>setName(e.target.value)}
+                onChange={(e: any)=>handleNameUpdate(e.target.value)}
                /> 
               <div 
                 className="popup__color-selector"
