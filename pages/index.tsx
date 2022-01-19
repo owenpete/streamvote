@@ -95,6 +95,7 @@ const Home: NextPage = () => {
   const removeCategory = (index: number) =>{
     setVotingCategories([
       ...votingCategories.slice(0, index),
+      undefined,
       ...votingCategories.slice(index+1)
     ])
   }
