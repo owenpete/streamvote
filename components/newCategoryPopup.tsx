@@ -53,9 +53,11 @@ const NewCategoryPopup = (props: Props) =>{
   }
 
   const popupAddCategory = (name: string, color: string, setName: any, setColor: any) =>{
-    props.addVotingCategory({ name: name, color: color })
-    resetPrompt();
-    props.setIsCreatingNew(false);
+    if(name != '' && color != ''){
+      props.addVotingCategory({ name: name, color: color })
+      resetPrompt();
+      props.setIsCreatingNew(false);
+    }
   }
 
   const handlePopupClose = () =>{
