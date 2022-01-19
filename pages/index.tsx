@@ -148,6 +148,7 @@ const Home: NextPage = () => {
                   openPopup={openPopup}
                   categoryData={category}
                   index={location}
+                  categoryCount={categoryCount}
                 />
               );
             })
@@ -168,6 +169,7 @@ const Home: NextPage = () => {
                   openPopup={openPopup}
                   categoryData={category}
                   index={location}
+                  categoryCount={categoryCount}
                 />
               )
             })

@@ -5,6 +5,7 @@ interface Props{
   categoryData: any;
   openPopup: any;
   index: number;
+  categoryCount: number;
 }
 
 const VoteItem = (props: Props) =>{
@@ -14,16 +15,28 @@ const VoteItem = (props: Props) =>{
       props.categoryData?
         <div
           className='vote-item'
-          style={{backgroundColor: `${props.categoryData.color.hex}`}}
+          style={{
+            backgroundColor: `${props.categoryData.color.hex}`,
+            flexDirection: `${props.categoryCount > 6? 'row' : 'column'}`,
+            justifyContent: `${props.categoryCount > 6? 'space-between' : 'space-evenly'}`,
+            fontSize: `${props.categoryCount > 6? '60px' : '68px'}`
+         }}
         >
           <span 
             className='vote-item__name'
             style={{
-              color: `${props.categoryData.color.name == 'black'? 'white' : 'black'}`
-              }
-            }
+              color: `${props.categoryData.color.name == 'black'? 'white' : 'black'}`,
+              }}
           >
             {props.categoryData.name}
+          </span>
+          <span 
+            className='vote-item__votes'
+            style={{
+              color: `${props.categoryData.color.name == 'black'? 'white' : 'black'}`
+            }}
+            >
+              0
           </span>
         </div>
       :
