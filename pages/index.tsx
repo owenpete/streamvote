@@ -101,9 +101,12 @@ const Home: NextPage = () => {
           {
             Array.from(Array(Math.ceil(categoryCount/2))).map((value: any, index: number)=>{
               const location = index+index+1;
+              const category = voteingCategories[location];
               return (
                 <VoteItem 
                   setIsCreatingNew={setIsCreatingNew}
+                  name={category.name}
+                  color={category.color}
                 />
               );
             })
@@ -118,9 +121,12 @@ const Home: NextPage = () => {
           {
             Array.from(Array(Math.floor(categoryCount/2))).map((value: any, index: number)=>{
               const location = index*2;
+              const category = voteingCategories[location];
               return(
                 <VoteItem 
                   setIsCreatingNew={setIsCreatingNew}
+                  name={category.name}
+                  color={category.color}
                 />
               )
             })

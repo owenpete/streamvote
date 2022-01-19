@@ -13,7 +13,7 @@ const VoteItem = (props: Props) =>{
       className='vote-item' 
       style={{backgroundColor: `${props.color}`}}
       onClick={()=>props.setIsCreatingNew(true)}
-      >
+    >
         <FiPlus />
     </div>
   );
