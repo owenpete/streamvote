@@ -23,6 +23,7 @@ const Home: NextPage = () => {
   const [leaderboard, setLeaderboard] = useState<any>([]);
   const [isTimerRunning, setTimer] = useState<boolean>(false);
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
+  const maxCategoryLimit = 8;
 
   useEffect(()=>{
     setVoteingCategories(getCategories());
@@ -38,10 +39,10 @@ const Home: NextPage = () => {
   });
 
   const addVotingCategory = (category: any) =>{
-    if(voteingCategories.length < 3){
+    if(voteingCategories.length < maxCategoryLimit){
       setVoteingCategories([...voteingCategories, category]);
     }else{
-      setVoteingCategories([...voteingCategories.slice(1), category]);
+      throw('max categories reached');
     }
   }
 
@@ -69,7 +70,7 @@ const Home: NextPage = () => {
           setTimer={setTimer}
         />
         <Leaderboard 
-          leaderboard={voteingCategories}
+          leaderboard={voteingCategories.slice(0, 3)}
         />
         <div className='main__left'>
         </div>
