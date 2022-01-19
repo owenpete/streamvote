@@ -63,13 +63,18 @@ const Home: NextPage = () => {
   useEffect(()=>{
     const isOverflowing = votingCategories.length > categoryCount;
     if(isOverflowing){
-      setVotingCategories(
-        votingCategories.slice(0, categoryCount)
-      );
+      handleOverflow();
     }else{
       setVotingCategories([...votingCategories, ...new Array(categoryCount - votingCategories.length).map(()=>undefined)]);
     }
   }, [categoryCount])
+
+  const handleOverflow = () =>{
+    const definedCategories = votingCategories.filter((value: any)=>value!=undefined);
+    setVotingCategories(
+      definedCategories.slice(0, categoryCount)
+    );
+  }
 
   const addVotingCategoryAtIndex = (category: { name: string, color: string }, slotIndex: number) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
