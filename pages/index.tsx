@@ -11,7 +11,7 @@ import VoteControls from '../components/VoteControls';
 import NewCategoryPopup from '../components/NewCategoryPopup';
 import VoteItem from '../components/VoteItem';
 
-import { getCategories, messages, addCategory } from '../utils/tmi'; 
+import { tmiGetCategories, messages, tmiAddCategory } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
 
 interface ChatData{
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
   }
 
   useEffect(()=>{
-    setVoteingCategories(getCategories());
+    setVoteingCategories(tmiGetCategories());
   },[])
 
   useEffect(()=>{
@@ -61,7 +61,7 @@ const Home: NextPage = () => {
   const addVotingCategory = (category: { name: string, color: string }) =>{
     if(voteingCategories.length < categoryCount){
       setVoteingCategories([...voteingCategories, category]);
-      addCategory(category);
+      tmiAddCategory(category);
     }else{
       throw('max categories reached');
     }
