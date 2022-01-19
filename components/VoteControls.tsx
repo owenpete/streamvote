@@ -32,7 +32,7 @@ const VoteControls = (props: Props) =>{
             //populating filters
             props.filterCategories.map((value: any)=>{
               return (
-                <option value={value.name} key={Math.random()}>{value.name}</option>
+                <option value={value} key={Math.random()}>{value}</option>
               );
             })
           }
