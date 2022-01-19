@@ -12,19 +12,15 @@ const VoteControls = (props: Props) =>{
     const filterCategories = [
     {
       name:'2',
-      filter: ''
     },
     {
       name:'4',
-      filter: 'price-asc'
     },
     {
       name:'6',
-      filter: 'price-desc'
     },
     {
       name:'8',
-      filter: 'a-z'
     }
   ];
 
