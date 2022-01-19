@@ -20,7 +20,7 @@ interface ChatData{
 
 const Home: NextPage = () => {
   const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
-  const [voteingCategories, setVoteingCategories] = useState<any>([]);
+  const [votingCategories, setVotingCategories] = useState<any>([]);
   const [leaderboard, setLeaderboard] = useState<any>([]);
   const [isTimerRunning, setTimer] = useState<boolean>(false);
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
   }
 
   useEffect(()=>{
-    setVoteingCategories(tmiGetCategories());
+    setVotingCategories(tmiGetCategories());
   },[])
 
   useEffect(()=>{
@@ -59,8 +59,8 @@ const Home: NextPage = () => {
   });
 
   const addVotingCategory = (category: { name: string, color: string }) =>{
-    if(voteingCategories.length < categoryCount){
-      setVoteingCategories([...voteingCategories, category]);
+    if(votingCategories.length < categoryCount){
+      setVotingCategories([...votingCategories, category]);
       tmiAddCategory(category);
     }else{
       throw('max categories reached');
@@ -95,13 +95,13 @@ const Home: NextPage = () => {
           setTimer={setTimer}
         />
         <Leaderboard 
-          leaderboard={voteingCategories.slice(0, 3)}
+          leaderboard={votingCategories.slice(0, 3)}
         />
         <div className='main__left main__vote-container'>
           {
             Array.from(Array(Math.ceil(categoryCount/2))).map((value: any, index: number)=>{
               const location = index+index+1;
-              const category = voteingCategories[location];
+              const category = votingCategories[location];
               return (
                 <VoteItem 
                   setIsCreatingNew={setIsCreatingNew}
@@ -121,7 +121,7 @@ const Home: NextPage = () => {
           {
             Array.from(Array(Math.floor(categoryCount/2))).map((value: any, index: number)=>{
               const location = index*2;
-              const category = voteingCategories[location];
+              const category = votingCategories[location];
               return(
                 <VoteItem 
                   setIsCreatingNew={setIsCreatingNew}
