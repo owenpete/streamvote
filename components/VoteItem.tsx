@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiSettings, FiTrash } from 'react-icons/fi';
 
 interface Props{
   categoryData: any;
   openPopup: any;
   index: number;
   categoryCount: number;
+  removeCategory: any;
 }
 
 const VoteItem = (props: Props) =>{
@@ -22,6 +23,16 @@ const VoteItem = (props: Props) =>{
             fontSize: `${props.categoryCount > 6? '46px' : '54px'}`
          }}
         >
+          <div className={`vote-item__hover`}>
+            <FiSettings 
+              className='hover__icon'
+              onClick={()=>props.openPopup(props.index)}
+            />
+            <FiTrash 
+              className='hover__icon'
+              onClick={()=>props.removeCategory(props.index)}
+            />
+          </div>
           <span 
             className='vote-item__name'
             style={{

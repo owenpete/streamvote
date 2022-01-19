@@ -92,6 +92,13 @@ const Home: NextPage = () => {
     }
   }
 
+  const removeCategory = (index: number) =>{
+    setVotingCategories([
+      ...votingCategories.slice(0, index),
+      ...votingCategories.slice(index+1)
+    ])
+  }
+
   const openPopup = (slotIndex: number) =>{
     setSlotIndex(slotIndex);
     setIsCreatingNew(true);
@@ -108,6 +115,7 @@ const Home: NextPage = () => {
       <NewCategoryPopup 
         isCreatingNew={isCreatingNew}
         setIsCreatingNew={setIsCreatingNew}
+        votingCategories={votingCategories}
         addVotingCategory={addVotingCategoryAtIndex}
         pushVotingCategory={pushVotingCategory}
         slotIndex={slotIndex}
@@ -141,6 +149,7 @@ const Home: NextPage = () => {
                   categoryData={category}
                   index={location}
                   categoryCount={categoryCount}
+                  removeCategory={removeCategory}
                 />
               );
             })
@@ -162,6 +171,7 @@ const Home: NextPage = () => {
                   categoryData={category}
                   index={location}
                   categoryCount={categoryCount}
+                  removeCategory={removeCategory}
                 />
               )
             })

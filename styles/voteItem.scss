@@ -1,5 +1,6 @@
 .vote-item{
   $voteSpacing: 1rem;
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -27,5 +28,27 @@
   }
 
   &__name, &__votes{
+  }
+  &__hover{
+    display: flex;
+    flex-direction: inherit;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 0;
+    border-radius: 20px;
+    transition: all 200ms ease-in-out;
+    svg{
+      margin: 2rem;
+      color: white;
+    }
+    &:hover{
+      font-size: inherit;
+      background-color: rgba(0, 0, 0, 0.85);
+    }
   }
 }

@@ -5,6 +5,7 @@ import { FiX } from 'react-icons/fi';
 interface Props{
   isCreatingNew: boolean;
   setIsCreatingNew: any;
+  votingCategories: any;
   addVotingCategory: any;
   pushVotingCategory: any;
   slotIndex: number | undefined;
@@ -51,6 +52,13 @@ const NewCategoryPopup = (props: Props) =>{
   const maxNameLength = 16;
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<{ name: string, hex: string }>({ name: '', hex: '' });
+
+  useEffect(()=>{
+    console.log(props)
+    if(props.slotIndex != undefined && props.votingCategories[props.slotIndex] != undefined){
+      setName(props.votingCategories[props.slotIndex].name)
+      setColor(props.votingCategories[props.slotIndex].color)
+    }  }, [props.isCreatingNew])
 
   const handleNameUpdate = (name: string) =>{
     if(name.length < maxNameLength){
