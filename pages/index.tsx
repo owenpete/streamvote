@@ -24,7 +24,7 @@ const Home: NextPage = () => {
   const [leaderboard, setLeaderboard] = useState<any>([]);
   const [isTimerRunning, setTimer] = useState<boolean>(false);
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
-  const [slotIndex, setSlotIndex] = useState<number>(0);
+  const [slotIndex, setSlotIndex] = useState<number | undefined>(undefined);
   const filterCategories = [
     {
       name:'2',
@@ -50,6 +50,7 @@ const Home: NextPage = () => {
     setVotingCategories(tmiGetCategories());
   },[])
 
+
   useEffect(()=>{
     let timerFunc = setInterval(() => {
       setChatData({
@@ -59,9 +60,40 @@ const Home: NextPage = () => {
     return () => clearInterval(timerFunc)
   });
 
-  const addVotingCategory = (category: { name: string, color: string }) =>{
-    if(votingCategories.length < categoryCount){
-      setVotingCategories([...votingCategories, category]);
+  useEffect(()=>{
+    const isOverflowing = votingCategories.length > categoryCount;
+    if(isOverflowing){
+      setVotingCategories(
+        votingCategories.slice(0, categoryCount)
+      );
+    }else{
+      setVotingCategories([...votingCategories, ...new Array(categoryCount - votingCategories.length).map(()=>undefined)]);
+    }
+  }, [categoryCount])
+
+  const addVotingCategoryAtIndex = (category: { name: string, color: string }, slotIndex: number) =>{
+    const isFull = votingCategories.indexOf(undefined) == -1;
+    if(!isFull){
+      setVotingCategories([
+        ...votingCategories.slice(0, slotIndex), 
+        category, 
+        ...votingCategories.slice(slotIndex+1)
+      ]);
+      tmiAddCategory(category);
+    }else{
+      throw('max categories reached');
+    }
+  }
+
+  const pushVotingCategory = (category: { name: string, color: string }) =>{
+    const isFull = votingCategories.indexOf(undefined) == -1;
+    const emptyIndex = votingCategories.indexOf(undefined);
+    if(!isFull){
+      setVotingCategories([
+        ...votingCategories.slice(0, emptyIndex),
+        category,
+        ...votingCategories.slice(emptyIndex+1)
+      ]);
       tmiAddCategory(category);
     }else{
       throw('max categories reached');
@@ -84,12 +116,14 @@ const Home: NextPage = () => {
       <NewCategoryPopup 
         isCreatingNew={isCreatingNew}
         setIsCreatingNew={setIsCreatingNew}
-        addVotingCategory={addVotingCategory}
+        addVotingCategory={addVotingCategoryAtIndex}
+        pushVotingCategory={pushVotingCategory}
         slotIndex={slotIndex}
+        setSlotIndex={setSlotIndex}
       />
       <div className="main">
         <VoteControls 
-          addVotingCategory={addVotingCategory}
+          addVotingCategory={addVotingCategoryAtIndex}
           setIsCreatingNew={setIsCreatingNew}
           isCreatingNew={isCreatingNew}
           categoryCount={categoryCount}

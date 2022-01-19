@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 interface Props{
-  leaderboard: any; 
+  leaderboard: any | undefined; 
 }
 
 const Leaderboard = (props: Props) =>{
@@ -10,15 +10,19 @@ const Leaderboard = (props: Props) =>{
       {
         props.leaderboard.map((value: any, index: number)=>{
           return (
-            <li 
-              className='leaderboard__item'
-              key={index}
-            >
-              <span className='item__number'>{index+1}.</span>{value.name}
-            </li>
+            <>
+              {value&&
+                <li 
+                  className='leaderboard__item'
+                  key={index}
+                >
+                  <span className='item__number'>{index+1}.</span>{value.name}
+                </li>
+              }
+            </>
           )
         })
-      }
+        }
     </div>
   );
 }

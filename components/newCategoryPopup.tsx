@@ -1,3 +1,4 @@
+import { StringifyOptions } from 'querystring';
 import { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 
@@ -5,7 +6,9 @@ interface Props{
   isCreatingNew: boolean;
   setIsCreatingNew: any;
   addVotingCategory: any;
-  slotIndex: number;
+  pushVotingCategory: any;
+  slotIndex: number | undefined;
+  setSlotIndex: any;
 }
 
 const NewCategoryPopup = (props: Props) =>{
@@ -51,11 +54,16 @@ const NewCategoryPopup = (props: Props) =>{
   const resetPrompt = () =>{
     setName('');
     setColor('');
+    props.setSlotIndex(undefined);
   }
 
-  const popupAddCategory = (name: string, color: string, setName: any, setColor: any) =>{
+  const popupAddCategory = (name: string, color: string) =>{
     if(name != '' && color != ''){
-      props.addVotingCategory({ name: name, color: color })
+      if(props.slotIndex){
+        props.addVotingCategory({ name: name, color: color }, props.slotIndex);
+      }else{
+        props.pushVotingCategory({ name: name, color: color });
+      }
       resetPrompt();
       props.setIsCreatingNew(false);
     }
@@ -114,7 +122,7 @@ const NewCategoryPopup = (props: Props) =>{
                   type="button"
                   value='Confirm'
                   className='actions__confirm actions'
-                  onClick={()=>popupAddCategory(name, color, setName, setColor)}
+                  onClick={()=>popupAddCategory(name, color)}
                 />
                </div>
             </div>
