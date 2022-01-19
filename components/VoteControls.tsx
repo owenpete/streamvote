@@ -8,7 +8,7 @@ interface Props{
   isCreatingNew: boolean;
   categoryCount: number;
   setCategoryCount: any;
-  filterCategories: any;
+  categoryOptions: any;
   handleFilter: any;
 }
 
@@ -30,7 +30,7 @@ const VoteControls = (props: Props) =>{
         >
           {
             //populating filters
-            props.filterCategories.map((value: any)=>{
+            props.categoryOptions.map((value: any)=>{
               return (
                 <option value={value} key={Math.random()}>{value}</option>
               );

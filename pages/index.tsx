@@ -25,7 +25,7 @@ const Home: NextPage = () => {
   const [isTimerRunning, setTimer] = useState<boolean>(false);
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
   const [slotIndex, setSlotIndex] = useState<number | undefined>(undefined);
-  const filterCategories = [2, 4, 6, 8];
+  const categoryOptions = [2, 4, 6, 8];
 
   const [categoryCount, setCategoryCount] = useState<any>(2);
 
@@ -120,7 +120,7 @@ const Home: NextPage = () => {
           isCreatingNew={isCreatingNew}
           categoryCount={categoryCount}
           setCategoryCount={setCategoryCount}
-          filterCategories={filterCategories}
+          categoryOptions={categoryOptions}
           handleFilter={handleFilter}
         />
         <Timer
