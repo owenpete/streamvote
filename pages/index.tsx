@@ -55,6 +55,8 @@ const Home: NextPage = () => {
       </Head>
       <NewCategoryPopup 
         isCreatingNew={isCreatingNew}
+        setIsCreatingNew={setIsCreatingNew}
+        addVotingCategory={addVotingCategory}
       />
       <div className="main">
         <VoteControls 

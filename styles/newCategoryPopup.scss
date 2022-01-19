@@ -1,9 +1,105 @@
 .new-category{
   position: absolute;
   display: flex;
-  justify-self: center;
+  justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
+  background-color: transparent;
+  padding: 8%;
   z-index: 10;
+}
+
+.new-category__popup{
+  display: flex;
+  flex-direction: column;
+  background-color: hsl(215, 15%, 25%);
+  height: 100%;
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 5px;
+  padding: 2.5rem;
+  .popup__header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: white;
+    font-size: 28px;
+    .header__title{
+    }
+    .header__exit{
+    }
+  }
+  .popup__name{
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    color: white;
+    background-color: hsl(215, 15%, 35%);
+    padding: 1rem 1.5rem;
+  }
+
+  .popup__color-selector{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    margin-top: 2rem;
+    $colorSpacing: 0.5rem;
+    .color-selector__color{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 0 $colorSpacing;
+      transition: all 100ms ease-in-out;
+      &:first-child{
+        margin: 0;
+        margin-right: $colorSpacing;
+      }
+      &:last-child{
+        margin: 0;
+        margin-left: $colorSpacing;
+      }
+      &:hover{
+        outline: 5px solid white;
+      }
+    }
+  }
+  
+  .popup__actions{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    margin-top: auto;
+    .actions{
+      color: white;
+      background-color: hsl(215, 15%, 20%);
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      padding: 0.5rem;
+      &:first-child{
+        margin-right: 0.8rem;
+      }
+      transition: all 100ms ease-in-out;
+    }
+    .actions__cancel{
+      &:hover{
+        background-color: hsl(8, 100%, 67%);
+      }
+    }
+    .actions__confirm{
+      &:hover{
+        background-color: rgb(107, 209, 145);
+      }
+    }
+  }
 }
