@@ -15,12 +15,11 @@
   height: 100%;
   margin-bottom: $voteSpacing;
   font-size: 48px;
-  border-radius: 5px;
+  border-radius: 20px;
   transition: all 200ms ease-in-out;
   &--placeholder{
     color: gray;
     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='gray' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='35' stroke-linecap='square'/%3e%3c/svg%3e");
-    border-radius: 20px;
     background-color: transparent;
   }
   &:last-child{
