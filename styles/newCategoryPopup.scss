@@ -68,6 +68,9 @@
       &:hover{
         outline: 5px solid white;
       }
+      &--selected{
+        outline: 5px solid hsl(51, 100%, 50%) !important;
+      }
     }
   }
   

@@ -117,7 +117,7 @@ const NewCategoryPopup = (props: Props) =>{
                   colors.map((value: any)=>{
                     return (
                       <div 
-                        className='color-selector__color' 
+                        className={`color-selector__color ${value.name == color.name && 'color-selector__color--selected'}`} 
                         style={{backgroundColor: `${value.hex}`}}
                         data-color={value.name}
                         onClick={(e: any)=>setColor({name: e.target.dataset.color, hex: value.hex})}
