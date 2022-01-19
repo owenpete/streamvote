@@ -58,9 +58,10 @@ const Home: NextPage = () => {
     return () => clearInterval(timerFunc)
   });
 
-  const addVotingCategory = (category: any) =>{
+  const addVotingCategory = (category: { name: string, color: string }) =>{
     if(voteingCategories.length < categoryCount){
       setVoteingCategories([...voteingCategories, category]);
+      addCategory(category);
     }else{
       throw('max categories reached');
     }
