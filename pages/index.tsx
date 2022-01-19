@@ -9,10 +9,10 @@ import Leaderboard from '../components/Leaderboard';
 import Timer from '../components/Timer';
 import VoteControls from '../components/VoteControls';
 import NewCategoryPopup from '../components/NewCategoryPopup';
+import VoteItem from '../components/VoteItem';
 
 import { getCategories, messages, addCategory } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
-import { FiPlus } from 'react-icons/fi';
 
 interface ChatData{
   messages: any[];
@@ -101,9 +101,9 @@ const Home: NextPage = () => {
             Array.from(Array(Math.ceil(categoryCount/2))).map((value: any, index: number)=>{
               const location = index+index+1;
               return (
-                <div className='main__vote'>
-                  <FiPlus />
-                </div>
+                <VoteItem 
+
+                />
               );
             })
           }
@@ -118,9 +118,9 @@ const Home: NextPage = () => {
             Array.from(Array(Math.floor(categoryCount/2))).map((value: any, index: number)=>{
               const location = index*2;
               return(
-                <div className='main__vote'>
-                  <FiPlus />
-                </div>
+                <VoteItem 
+
+                />
               )
             })
           }

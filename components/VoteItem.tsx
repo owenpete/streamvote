@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
+import { FiPlus } from 'react-icons/fi';
 
 interface Props{
   name: string;
-  command: string;
   color: string;
 }
 
@@ -12,7 +12,7 @@ const VoteItem = (props: Props) =>{
       className='vote-item' 
       style={{backgroundColor: `${props.color}`}}
       >
-
+        <FiPlus />
     </div>
   );
 }
