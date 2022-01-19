@@ -53,6 +53,13 @@ const NewCategoryPopup = (props: Props) =>{
     setColor('');
     props.setIsCreatingNew(false);
   }
+
+  const handlePopupClose = () =>{
+    setName('');
+    setColor('');
+    props.setIsCreatingNew(false);
+  }
+
   return (
     <>
       {
@@ -63,7 +70,7 @@ const NewCategoryPopup = (props: Props) =>{
                 <span className='header__title'>Add New Category</span>
                 <FiX 
                   className='header__exit'
-                  onClick={()=>props.setIsCreatingNew(false)}
+                  onClick={()=>handlePopupClose()}
                 />
               </div>
               <input 
@@ -90,7 +97,7 @@ const NewCategoryPopup = (props: Props) =>{
                   type="button"
                   value='Cancel'  
                   className='actions__cancel actions'
-                  onClick={()=>props.setIsCreatingNew(false)}
+                  onClick={()=>handlePopupClose()}
                 />
                 <input 
                   type="button"
