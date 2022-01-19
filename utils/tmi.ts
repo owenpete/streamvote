@@ -8,7 +8,7 @@ let votingCategories: any[] = [];
 let messages: any[] = [];
 
 const client = new tmi.Client({
-  channels: ['ninja']
+  channels: ['summit1g']
 });
 
 export const addCategory = (name: string, color: string) =>{

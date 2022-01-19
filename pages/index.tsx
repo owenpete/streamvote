@@ -12,6 +12,7 @@ import NewCategoryPopup from '../components/NewCategoryPopup';
 
 import { getCategories, messages, addCategory } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
+import { FiPlus } from 'react-icons/fi';
 
 interface ChatData{
   messages: any[];
@@ -95,15 +96,34 @@ const Home: NextPage = () => {
         <Leaderboard 
           leaderboard={voteingCategories.slice(0, 3)}
         />
-        <div className='main__left'>
+        <div className='main__left main__vote-container'>
+          {
+            Array.from(Array(Math.ceil(categoryCount/2))).map((value: any, index: number)=>{
+              const location = index+index+1;
+              return (
+                <div className='main__vote'>
+                  <FiPlus />
+                </div>
+              );
+            })
+          }
         </div>
         <div className="main__center">
           <ChatBox 
             chatData={chatData}
           /> 
         </div>
-        <div className='main__right'>
-
+        <div className='main__right main__vote-container'>
+          {
+            Array.from(Array(Math.floor(categoryCount/2))).map((value: any, index: number)=>{
+              const location = index*2;
+              return(
+                <div className='main__vote'>
+                  <FiPlus />
+                </div>
+              )
+            })
+          }
         </div>
       </div>
     </div>
