@@ -19,12 +19,12 @@ const VoteControls = (props: Props) =>{
   
   return (
     <div className='vote-controls'>
-      <div className='resbar__filter'>
-        <input className='resbar__dropdown-button' value={`# of categories: ${props.categoryCount}`} type='button' />
-        <FiChevronDown className='resbar__dropdown-arrow' />
+      <div className='vote-controls__dropdown-container'>
+        <input className='vote-controls__dropdown-button' value={`# of categories: ${props.categoryCount}`} type='button' />
+        <FiChevronDown className='vote-controls__dropdown-arrow' />
         <select
           name='catagories'
-          className='resbar__dropdown'
+          className='vote-controls__dropdown'
           onChange={(e)=>{props.handleFilter(e.target.value)}}
           value={props.categoryCount}
         >
