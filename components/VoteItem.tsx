@@ -2,20 +2,30 @@ import { useEffect, useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 
 interface Props{
-  name: string;
-  color: string;
+  categoryData: any;
   setIsCreatingNew: any;
 }
 
 const VoteItem = (props: Props) =>{
   return (
-    <div 
-      className='vote-item' 
-      style={{backgroundColor: `${props.color}`}}
-      onClick={()=>props.setIsCreatingNew(true)}
-    >
-        <FiPlus />
-    </div>
+    <>
+    {
+      props.categoryData?
+        <div
+          className='vote-item'
+          style={{backgroundColor: `${props.categoryData.color}`}}
+        >
+
+        </div>
+      :
+        <div 
+          className='vote-item vote-item--placeholder' 
+          onClick={()=>props.setIsCreatingNew(true)}
+        >
+            <FiPlus />
+        </div>
+    }
+    </>
   );
 }
 

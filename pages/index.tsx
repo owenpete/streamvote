@@ -105,8 +105,7 @@ const Home: NextPage = () => {
               return (
                 <VoteItem 
                   setIsCreatingNew={setIsCreatingNew}
-                  name={category.name}
-                  color={category.color}
+                  categoryData={category}
                 />
               );
             })
@@ -125,8 +124,7 @@ const Home: NextPage = () => {
               return(
                 <VoteItem 
                   setIsCreatingNew={setIsCreatingNew}
-                  name={category.name}
-                  color={category.color}
+                  categoryData={category}
                 />
               )
             })
