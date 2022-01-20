@@ -1,28 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props{
-  isRunning: boolean;
-  setTimer: any;
+  isTimerRunning: boolean;
+  isVoting: boolean;
+  setIsVoting: any;
+  setIsTimerRunning: any;
 }
 
 const Timer = (props: Props) =>{
+
+  const handleTimerButtonClick = (button: 'stop' | 'start') =>{
+    switch(button){
+      case 'stop':
+        props.setIsTimerRunning(false);
+        props.setIsVoting(false);
+        break;
+      case 'start':
+        props.setIsTimerRunning(true);
+        props.setIsVoting(true);
+        break;
+    }
+  }
+
+  useEffect(()=>{
+    console.log('isTimerRunning: ', props.isTimerRunning)
+    console.log('isVoting: ', props.isVoting)
+  }, [props.isTimerRunning]);
+
   return (
     <div className="timer">
       5:00
       {
-        props.isRunning?
+        props.isTimerRunning?
         <input 
           type='button'
           value='Stop'
           className='timer__stop timer__button'
-          onClick={()=>props.setTimer(false)}
+          onClick={()=>handleTimerButtonClick('stop')}
         />
         :
         <input 
           type='button'
           value='Start'
           className='timer__start timer__button'
-          onClick={()=>props.setTimer(true)}
+          onClick={()=>handleTimerButtonClick('start')}
         />
       }
     </div>

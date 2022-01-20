@@ -11,7 +11,7 @@ import VoteControls from '../components/VoteControls';
 import NewCategoryPopup from '../components/NewCategoryPopup';
 import VoteItem from '../components/VoteItem';
 
-import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, getMessages } from '../utils/tmi'; 
+import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, getMessages, tmiSetIsVoting, tmiGetIsVoting } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
 
 interface ChatData{
@@ -22,9 +22,10 @@ const Home: NextPage = () => {
   const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
   const [votingCategories, setVotingCategories] = useState<any>([]);
   const [leaderboard, setLeaderboard] = useState<any>([]);
-  const [isTimerRunning, setTimer] = useState<boolean>(false);
+  const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
   const [slotIndex, setSlotIndex] = useState<number | undefined>(undefined);
+  const [isVoting, setIsVoting] = useState<boolean>(false);
   const categoryOptions = [2, 4, 6, 8];
 
   const [categoryCount, setCategoryCount] = useState<any>(categoryOptions[0]);
@@ -61,6 +62,10 @@ const Home: NextPage = () => {
       definedCategories.slice(0, categoryCount)
     );
   }
+
+  useEffect(()=>{
+    tmiSetIsVoting(isVoting);
+  }, [isVoting])
 
   const addVotingCategoryAtIndex = (category: { name: string, color: string }, slotIndex: number, isEditing: boolean) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
@@ -140,8 +145,10 @@ const Home: NextPage = () => {
           handleFilter={handleFilter}
         />
         <Timer
-          isRunning={isTimerRunning}
-          setTimer={setTimer}
+          isTimerRunning={isTimerRunning}
+          setIsTimerRunning={setIsTimerRunning}
+          isVoting={isVoting}
+          setIsVoting={setIsVoting}
         />
         <Leaderboard 
           leaderboard={votingCategories.slice(0, 3)}

@@ -45,6 +45,14 @@ export const getMessages = () =>{
   return messages;
 }
 
+export const tmiSetIsVoting = (isVoteRunning: boolean) =>{
+  isVoting = isVoteRunning;
+}
+
+export const tmiGetIsVoting = () =>{
+  return isVoting;
+}
+
 const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{
   if(messages.length >= maxChatSize){
     messages.pop();
