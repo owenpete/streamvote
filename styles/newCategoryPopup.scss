@@ -46,14 +46,16 @@
   .popup__color-selector{
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
-    height: 80px;
-    width: 100%;
-    margin-top: 2rem;
+    height: 70px;
+    padding: 1.5rem;
+    background-color: hsl(215, 15%, 35%);
+    border-radius: 50px;
     $colorSpacing: 0.5rem;
     .color-selector__color{
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       margin: 0 $colorSpacing;
       transition: all 100ms ease-in-out;
@@ -72,23 +74,34 @@
         outline: 5px solid hsl(51, 100%, 50%) !important;
       }
     }
+    .color-selector__random{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      color: white;
+      svg{
+        pointer-events: none;
+      }
+    }
   }
   
   .popup__actions{
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
     align-items: center;
     border: none;
     border-radius: 5px;
     outline: none;
-    margin-top: auto;
     .actions{
+      font-size: 13px;
       color: white;
       background-color: hsl(215, 15%, 20%);
       border: none;
       border-radius: 5px;
       outline: none;
-      padding: 0.5rem;
+      padding: 1rem 2rem;
       &:first-child{
         margin-right: 0.8rem;
       }
@@ -104,5 +117,12 @@
         background-color: rgb(107, 209, 145);
       }
     }
+  }
+  .popup__footer{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    margin-top: auto;
   }
 }

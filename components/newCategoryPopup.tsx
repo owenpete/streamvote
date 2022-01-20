@@ -1,6 +1,7 @@
 import { StringifyOptions } from 'querystring';
 import { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
+import { GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
 
 interface Props{
   isCreatingNew: boolean;
@@ -41,11 +42,15 @@ const NewCategoryPopup = (props: Props) =>{
     },
     {
       name: 'white',
-      hex: '#ffffff'
+      hex: '#fffbf2'
     },
     {
       name: 'black',
-      hex: '#000000'
+      hex: '#1d2122'
+    },
+    {
+      name: 'random',
+      hex: 'transparent'
     },
   ];
 
@@ -82,6 +87,8 @@ const NewCategoryPopup = (props: Props) =>{
           return !definedColors.includes(value.name);
         })
         color = freeColors[Math.round(Math.random()*freeColors.length)];
+      }else if(color.name == 'random'){
+        color = colors[Math.round(Math.random()*colors.length-1)];
       }
 
       if(props.slotIndex){
@@ -120,35 +127,42 @@ const NewCategoryPopup = (props: Props) =>{
                 autoFocus={true}
                 onChange={(e: any)=>handleNameUpdate(e.target.value)}
                /> 
-              <div 
-                className="popup__color-selector"
-               > 
-                {
-                  colors.map((value: any)=>{
-                    return (
-                      <div 
-                        className={`color-selector__color ${value.name == color.name && 'color-selector__color--selected'}`} 
-                        style={{backgroundColor: `${value.hex}`}}
-                        data-color={value.name}
-                        onClick={(e: any)=>setColor({name: e.target.dataset.color, hex: value.hex})}
-                      ></div>
-                    )
-                  })
-                } 
-               </div>
-               <div className='popup__actions'>
-                <input 
-                  type="button"
-                  value='Cancel'  
-                  className='actions__cancel actions'
-                  onClick={()=>handlePopupClose()}
-                />
-                <input 
-                  type="button"
-                  value='Confirm'
-                  className='actions__confirm actions'
-                  onClick={()=>popupAddCategory(name, color)}
-                />
+               <div className="popup__footer">
+                <div 
+                  className="popup__color-selector"
+                > 
+                  {
+                    colors.map((value: any)=>{
+                      return (
+                        <div 
+                          className={`color-selector__color ${value.name == 'random' && 'color-selector__random'} ${value.name == color.name && 'color-selector__color--selected'}`} 
+                          style={{backgroundColor: `${value.hex}`}}
+                          data-color={value.name}
+                          onClick={(e: any)=>setColor({name: e.target.dataset.color, hex: value.hex})}
+                        >
+                          {
+                            value.name == 'random'&&
+                            <GiPerspectiveDiceSixFacesRandom />
+                          }
+                        </div>
+                      )
+                    })
+                  } 
+                </div>
+                <div className='popup__actions'>
+                  <input 
+                    type="button"
+                    value='Cancel'  
+                    className='actions__cancel actions'
+                    onClick={()=>handlePopupClose()}
+                  />
+                  <input 
+                    type="button"
+                    value='Confirm'
+                    className='actions__confirm actions'
+                    onClick={()=>popupAddCategory(name, color)}
+                  />
+                </div>
                </div>
             </div>
           </div>
