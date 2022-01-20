@@ -1,13 +1,13 @@
 import { StringifyOptions } from 'querystring';
 import { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
-import { GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
+import { GiConsoleController, GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
 
 interface Props{
   isCreatingNew: boolean;
   setIsCreatingNew: any;
   votingCategories: any;
-  addVotingCategory: any;
+  addVotingCategoryAtIndex: any;
   pushVotingCategory: any;
   slotIndex: number | undefined;
   setSlotIndex: any;
@@ -57,11 +57,13 @@ const NewCategoryPopup = (props: Props) =>{
   const maxNameLength = 16;
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<{ name: string, hex: string }>({ name: '', hex: '' });
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   useEffect(()=>{
     if(props.slotIndex != undefined && props.votingCategories[props.slotIndex] != undefined){
       setName(props.votingCategories[props.slotIndex].name)
       setColor(props.votingCategories[props.slotIndex].color)
+      setIsEditing(true);
     }  }, [props.isCreatingNew])
 
   const handleNameUpdate = (name: string) =>{
@@ -74,6 +76,7 @@ const NewCategoryPopup = (props: Props) =>{
     setName('');
     setColor({name: '', hex: ''});
     props.setSlotIndex(undefined);
+    setIsEditing(false);
   }
 
   const popupAddCategory = (name: string, color: { name: string, hex: string }) =>{
@@ -91,8 +94,8 @@ const NewCategoryPopup = (props: Props) =>{
         color = colors[Math.round(Math.random()*colors.length-1)];
       }
 
-      if(props.slotIndex){
-        props.addVotingCategory({ name: name, color: color }, props.slotIndex);
+      if(props.slotIndex != undefined){
+        props.addVotingCategoryAtIndex({ name: name, color: color }, props.slotIndex, isEditing);
       }else{
         props.pushVotingCategory({ name: name, color: color });
       }

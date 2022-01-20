@@ -63,9 +63,9 @@ const Home: NextPage = () => {
     );
   }
 
-  const addVotingCategoryAtIndex = (category: { name: string, color: string }, slotIndex: number) =>{
+  const addVotingCategoryAtIndex = (category: { name: string, color: string }, slotIndex: number, isEditing: boolean) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
-    if(!isFull){
+    if(!isFull || isEditing){
       setVotingCategories([
         ...votingCategories.slice(0, slotIndex), 
         category, 
@@ -117,7 +117,7 @@ const Home: NextPage = () => {
         isCreatingNew={isCreatingNew}
         setIsCreatingNew={setIsCreatingNew}
         votingCategories={votingCategories}
-        addVotingCategory={addVotingCategoryAtIndex}
+        addVotingCategoryAtIndex={addVotingCategoryAtIndex}
         pushVotingCategory={pushVotingCategory}
         slotIndex={slotIndex}
         setSlotIndex={setSlotIndex}
