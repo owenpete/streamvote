@@ -57,7 +57,7 @@ export const tmiSetPrefix = (pfx: string) =>{
   prefix = pfx;
 }
 
-export const tmiGetPrefix = (prefix: string) =>{
+export const tmiGetPrefix = () =>{
   return prefix; 
 }
 
