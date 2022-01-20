@@ -22,11 +22,6 @@ const Timer = (props: Props) =>{
     }
   }
 
-  useEffect(()=>{
-    console.log('isTimerRunning: ', props.isTimerRunning)
-    console.log('isVoting: ', props.isVoting)
-  }, [props.isTimerRunning]);
-
   return (
     <div className="timer">
       5:00
