@@ -11,7 +11,7 @@ import VoteControls from '../components/VoteControls';
 import NewCategoryPopup from '../components/NewCategoryPopup';
 import VoteItem from '../components/VoteItem';
 
-import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, getMessages, tmiSetIsVoting, tmiGetIsVoting } from '../utils/tmi'; 
+import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, getMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
 
 interface ChatData{
@@ -26,6 +26,7 @@ const Home: NextPage = () => {
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
   const [slotIndex, setSlotIndex] = useState<number | undefined>(undefined);
   const [isVoting, setIsVoting] = useState<boolean>(false);
+  const [prefix, setPrefix] = useState<string>('!');
   const categoryOptions = [2, 4, 6, 8];
 
   const [categoryCount, setCategoryCount] = useState<any>(categoryOptions[0]);
@@ -66,6 +67,10 @@ const Home: NextPage = () => {
   useEffect(()=>{
     tmiSetIsVoting(isVoting);
   }, [isVoting])
+
+  useEffect(()=>{
+    tmiSetPrefix(prefix);
+  }, [prefix])
 
   const addVotingCategoryAtIndex = (category: { name: string, color: string }, slotIndex: number, isEditing: boolean) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;

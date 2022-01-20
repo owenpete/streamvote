@@ -1,7 +1,7 @@
 import { connected } from 'process';
 import tmi from 'tmi.js';
 
-const prefix: string = '';
+let prefix: string = '';
 const maxChatSize: number = 50;
 let isVoting: boolean = false;
 let votingCategories: any[] = [];
@@ -51,6 +51,14 @@ export const tmiSetIsVoting = (isVoteRunning: boolean) =>{
 
 export const tmiGetIsVoting = () =>{
   return isVoting;
+}
+
+export const tmiSetPrefix = (pfx: string) =>{
+  prefix = pfx;
+}
+
+export const tmiGetPrefix = (prefix: string) =>{
+  return prefix; 
 }
 
 const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{
