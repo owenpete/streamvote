@@ -86,14 +86,14 @@ const NewCategoryPopup = (props: Props) =>{
           return value!=undefined;
         }).map((value: any)=>value.color.name);
 
-        const freeColors = colors.filter((value: any)=>{
+        const freeColors = colors.slice(0, colors.length-1).filter((value: any)=>{
           return !definedColors.includes(value.name);
         })
         color = freeColors[Math.round(Math.random()*freeColors.length)];
       }else if(color.name == 'random'){
         color = colors[Math.round(Math.random()*colors.length-1)];
       }
-
+      
       if(props.slotIndex != undefined){
         props.addVotingCategoryAtIndex({ name: name, color: color }, props.slotIndex, isEditing);
       }else{
