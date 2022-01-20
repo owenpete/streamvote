@@ -89,7 +89,8 @@ const NewCategoryPopup = (props: Props) =>{
         const freeColors = colors.slice(0, colors.length-1).filter((value: any)=>{
           return !definedColors.includes(value.name);
         })
-        color = freeColors[Math.round(Math.random()*freeColors.length)];
+        const randomColorIndex = Math.round(Math.random()*(freeColors.length-1));
+        color = freeColors[randomColorIndex];
       }else if(color.name == 'random'){
         color = colors[Math.round(Math.random()*colors.length-1)];
       }
