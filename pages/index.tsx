@@ -11,7 +11,7 @@ import VoteControls from '../components/VoteControls';
 import NewCategoryPopup from '../components/NewCategoryPopup';
 import VoteItem from '../components/VoteItem';
 
-import { tmiGetCategories, messages, tmiAddCategory } from '../utils/tmi'; 
+import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, getMessages } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
 
 interface ChatData{
@@ -37,11 +37,10 @@ const Home: NextPage = () => {
     setVotingCategories(tmiGetCategories());
   },[])
 
-
   useEffect(()=>{
     let timerFunc = setInterval(() => {
       setChatData({
-        messages: messages
+        messages: getMessages()
       });
     }, 1000);
     return () => clearInterval(timerFunc)
@@ -71,7 +70,7 @@ const Home: NextPage = () => {
         category, 
         ...votingCategories.slice(slotIndex+1)
       ]);
-      tmiAddCategory(category);
+      tmiAddCategoryAtIndex(category, slotIndex);
     }else{
       throw('max categories reached');
     }
@@ -104,7 +103,8 @@ const Home: NextPage = () => {
       ...votingCategories.slice(0, index),
       undefined,
       ...votingCategories.slice(index+1)
-    ])
+    ]);
+    tmiRemoveCategory(index);
   }
 
   const openPopup = (slotIndex: number) =>{

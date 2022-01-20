@@ -1,3 +1,4 @@
+import { connected } from 'process';
 import tmi from 'tmi.js';
 
 const prefix: string = '';
@@ -12,15 +13,36 @@ const client = new tmi.Client({
 });
 
 export const tmiAddCategory = (category: { name: string, color: string}) =>{
-  votingCategories.push(category);
+  votingCategories[votingCategories.indexOf(undefined)] = category;
   return votingCategories;
 }
 
-export const tmiRemoveCategory = (name: string) => {
+export const tmiAddCategoryAtIndex = (category: { name: string, color: string}, index: number) =>{
+  const currentMaxIndex: number = votingCategories.length-1;
+  if(currentMaxIndex < index){
+    for(let i = votingCategories.length; i <= index; i++){
+      if(i == index){
+        votingCategories.push(category);
+      }else{
+        votingCategories.push(undefined);
+      }
+    }
+  }else{
+    votingCategories[index] = category;
+  }
+  return votingCategories;
+}
+
+export const tmiRemoveCategory = (index: number) => {
+  votingCategories[index] = undefined;
 }
 
 export const tmiGetCategories = ()=>{
   return (votingCategories);
+}
+
+export const getMessages = () =>{
+  return messages;
 }
 
 const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{
