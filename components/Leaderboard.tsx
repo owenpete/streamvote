@@ -6,20 +6,19 @@ interface Props{
 
 const Leaderboard = (props: Props) =>{
   return (
-    <div className="leaderboard">
+    <div 
+      className="leaderboard"
+    >
       {
         props.leaderboard.map((value: any, index: number)=>{
           return (
-            <>
-              {value&&
-                <li 
-                  className='leaderboard__item'
-                  key={index}
-                >
-                  <span className='item__number'>{index+1}.</span>{value.name}
-                </li>
-              }
-            </>
+            value&&
+              <li 
+                className='leaderboard__item'
+                key={index}
+              >
+                <span className='item__number'>{index+1}.</span>{value.name}
+              </li>
           )
         })
         }

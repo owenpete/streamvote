@@ -153,6 +153,7 @@ const Home: NextPage = () => {
               const category = votingCategories[location];
               return (
                 <VoteItem 
+                  key={index}
                   openPopup={openPopup}
                   categoryData={category}
                   index={location}
@@ -175,6 +176,7 @@ const Home: NextPage = () => {
               const category = votingCategories[location];
               return(
                 <VoteItem 
+                  key={index}
                   openPopup={openPopup}
                   categoryData={category}
                   index={location}

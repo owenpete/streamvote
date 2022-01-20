@@ -136,13 +136,14 @@ const NewCategoryPopup = (props: Props) =>{
                   className="popup__color-selector"
                 > 
                   {
-                    colors.map((value: any)=>{
+                    colors.map((value: any, index: number)=>{
                       return (
                         <div 
                           className={`color-selector__color ${value.name == 'random' && 'color-selector__random'} ${value.name == color.name && 'color-selector__color--selected'}`} 
                           style={{backgroundColor: `${value.hex}`}}
                           data-color={value.name}
                           onClick={(e: any)=>setColor({name: e.target.dataset.color, hex: value.hex})}
+                          key={index}
                         >
                           {
                             value.name == 'random'&&
