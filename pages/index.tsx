@@ -27,7 +27,7 @@ const Home: NextPage = () => {
   const [slotIndex, setSlotIndex] = useState<number | undefined>(undefined);
   const categoryOptions = [2, 4, 6, 8];
 
-  const [categoryCount, setCategoryCount] = useState<any>(2);
+  const [categoryCount, setCategoryCount] = useState<any>(categoryOptions[0]);
 
   const handleFilter = (categoryCount: string) =>{
     setCategoryCount(+categoryCount);
@@ -80,16 +80,23 @@ const Home: NextPage = () => {
   const pushVotingCategory = (category: { name: string, color: string }) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
     const emptyIndex = votingCategories.indexOf(undefined);
-    if(!isFull){
+    if(isFull && categoryOptions.length != categoryOptions.indexOf(categoryCount)){
+      setVotingCategories([
+        ...votingCategories,
+        category,
+        undefined
+      ]);
+      setCategoryCount(categoryOptions[categoryOptions.indexOf(categoryCount)+1])
+    }else if(categoryOptions.length != categoryOptions.indexOf(categoryCount)){
       setVotingCategories([
         ...votingCategories.slice(0, emptyIndex),
         category,
         ...votingCategories.slice(emptyIndex+1)
       ]);
-      tmiAddCategory(category);
     }else{
       throw('max categories reached');
     }
+    tmiAddCategory(category);
   }
 
   const removeCategory = (index: number) =>{
