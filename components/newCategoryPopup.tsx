@@ -54,7 +54,6 @@ const NewCategoryPopup = (props: Props) =>{
   const [color, setColor] = useState<{ name: string, hex: string }>({ name: '', hex: '' });
 
   useEffect(()=>{
-    console.log(props)
     if(props.slotIndex != undefined && props.votingCategories[props.slotIndex] != undefined){
       setName(props.votingCategories[props.slotIndex].name)
       setColor(props.votingCategories[props.slotIndex].color)
@@ -73,7 +72,18 @@ const NewCategoryPopup = (props: Props) =>{
   }
 
   const popupAddCategory = (name: string, color: { name: string, hex: string }) =>{
-    if(name != '' && color.name != ''){
+    if(name != ''){
+      if(color.name == '' || color.hex == ''){
+        const definedColors: any[] = props.votingCategories.filter((value: any)=>{
+          return value!=undefined;
+        }).map((value: any)=>value.color.name);
+
+        const freeColors = colors.filter((value: any)=>{
+          return !definedColors.includes(value.name);
+        })
+        color = freeColors[Math.round(Math.random()*freeColors.length)];
+      }
+
       if(props.slotIndex){
         props.addVotingCategory({ name: name, color: color }, props.slotIndex);
       }else{
