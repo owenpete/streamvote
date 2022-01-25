@@ -47,7 +47,7 @@ const VoteItem = (props: Props) =>{
               color: `${props.categoryData.color.name == 'black'? 'white' : 'black'}`
             }}
             >
-              0
+              {props.categoryData.votes.length}
           </span>
         </div>
       :

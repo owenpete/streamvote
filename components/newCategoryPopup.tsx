@@ -9,6 +9,7 @@ interface Props{
   votingCategories: any;
   addVotingCategoryAtIndex: any;
   pushVotingCategory: any;
+  createRegexListener: any;
   slotIndex: number | undefined;
   setSlotIndex: any;
 }
@@ -79,9 +80,9 @@ const NewCategoryPopup = (props: Props) =>{
     setIsEditing(false);
   }
 
-  const popupAddCategory = (name: string, color: { name: string, hex: string }) =>{
+  const popupAddCategory = (category: { name: string, color: { name: string, hex: string } }) =>{
     if(name != ''){
-      if(color.name == '' || color.hex == ''){
+      if(category.color.name == '' || category.color.hex == ''){
         const definedColors: any[] = props.votingCategories.filter((value: any)=>{
           return value!=undefined;
         }).map((value: any)=>value.color.name);
@@ -90,15 +91,15 @@ const NewCategoryPopup = (props: Props) =>{
           return !definedColors.includes(value.name);
         })
         const randomColorIndex = Math.round(Math.random()*(freeColors.length-1));
-        color = freeColors[randomColorIndex];
-      }else if(color.name == 'random'){
-        color = colors[Math.round(Math.random()*colors.length-1)];
+        category.color = freeColors[randomColorIndex];
+      }else if(category.color.name == 'random'){
+        category.color = colors[Math.round(Math.random()*colors.length-1)];
       }
       
       if(props.slotIndex != undefined){
-        props.addVotingCategoryAtIndex({ name: name, color: color }, props.slotIndex, isEditing);
+        props.addVotingCategoryAtIndex({ ...category, votes: [], regexListener: props.createRegexListener(category) }, props.slotIndex, isEditing);
       }else{
-        props.pushVotingCategory({ name: name, color: color });
+        props.pushVotingCategory({ ...category, votes: [], regexListener: props.createRegexListener(category)});
       }
       resetPrompt();
       props.setIsCreatingNew(false);
@@ -165,7 +166,7 @@ const NewCategoryPopup = (props: Props) =>{
                     type="button"
                     value='Confirm'
                     className='actions__confirm actions'
-                    onClick={()=>popupAddCategory(name, color)}
+                    onClick={()=>popupAddCategory({ name: name, color: color})}
                   />
                 </div>
                </div>

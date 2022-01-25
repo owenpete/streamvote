@@ -11,7 +11,7 @@ import VoteControls from '../components/VoteControls';
 import NewCategoryPopup from '../components/NewCategoryPopup';
 import VoteItem from '../components/VoteItem';
 
-import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, getMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix } from '../utils/tmi'; 
+import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, tmiGetMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix, tmiSetCategory } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
 
 interface ChatData{
@@ -26,43 +26,42 @@ const Home: NextPage = () => {
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
   const [slotIndex, setSlotIndex] = useState<number | undefined>(undefined);
   const [isVoting, setIsVoting] = useState<boolean>(false);
-  const [prefix, setPrefix] = useState<string>('!');
+  const [prefix, setPrefix] = useState<string>('');
   const categoryOptions = [2, 4, 6, 8];
 
-  const [categoryCount, setCategoryCount] = useState<any>(categoryOptions[0]);
+  const [categoryGridSize, setCategoryGridSize] = useState<any>(categoryOptions[0]);
 
   const handleFilter = (categoryCount: string) =>{
-    setCategoryCount(+categoryCount);
+    setCategoryGridSize(+categoryCount);
   }
-
-  useEffect(()=>{
-    setVotingCategories(tmiGetCategories());
-  },[])
 
   useEffect(()=>{
     let timerFunc = setInterval(() => {
       setChatData({
-        messages: getMessages()
+        messages: tmiGetMessages()
       });
+      setVotingCategories(tmiGetCategories());
     }, 1000);
     return () => clearInterval(timerFunc)
   });
 
   useEffect(()=>{
-    const isOverflowing = votingCategories.length > categoryCount;
+    // updates backend data when fontend category is added
+    tmiSetCategory(votingCategories);
+  }, [votingCategories])
+
+  useEffect(()=>{
+    const isOverflowing = votingCategories.length > categoryGridSize;
     if(isOverflowing){
       handleOverflow();
     }else{
-      setVotingCategories([...votingCategories, ...new Array(categoryCount - votingCategories.length).map(()=>undefined)]);
+      // fill empty indexs with "undefined"
+      setVotingCategories([
+        ...votingCategories, 
+        ...new Array(categoryGridSize - votingCategories.length).map(()=>undefined)
+      ]);
     }
-  }, [categoryCount])
-
-  const handleOverflow = () =>{
-    const definedCategories = votingCategories.filter((value: any)=>value!=undefined);
-    setVotingCategories(
-      definedCategories.slice(0, categoryCount)
-    );
-  }
+  }, [categoryGridSize])
 
   useEffect(()=>{
     tmiSetIsVoting(isVoting);
@@ -72,9 +71,18 @@ const Home: NextPage = () => {
     tmiSetPrefix(prefix);
   }, [prefix])
 
-  const addVotingCategoryAtIndex = (category: { name: string, color: string }, slotIndex: number, isEditing: boolean) =>{
+  const handleOverflow = () =>{
+    // create an array of categories then slice to fit within size params
+    const definedCategories = votingCategories.filter((value: any)=>value!=undefined);
+    setVotingCategories(
+      definedCategories.slice(0, categoryGridSize)
+    );
+  }
+
+  const addVotingCategoryAtIndex = (category: { name: string, color: string, votes: [], regexListener: string }, slotIndex: number, isEditing: boolean) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
     if(!isFull || isEditing){
+      // place/replace category at index
       setVotingCategories([
         ...votingCategories.slice(0, slotIndex), 
         category, 
@@ -86,17 +94,19 @@ const Home: NextPage = () => {
     }
   }
 
-  const pushVotingCategory = (category: { name: string, color: string }) =>{
+  const pushVotingCategory = (category: { name: string, color: string, votes: [], regexListener: string }) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
     const emptyIndex = votingCategories.indexOf(undefined);
-    if(isFull && categoryOptions.length != categoryOptions.indexOf(categoryCount)){
+    if(isFull && categoryOptions.length != categoryOptions.indexOf(categoryGridSize)){
+      // if category grid is full & grid size is not equal to max grid size, create two new category slots & populate the first with the new category
       setVotingCategories([
         ...votingCategories,
         category,
         undefined
       ]);
-      setCategoryCount(categoryOptions[categoryOptions.indexOf(categoryCount)+1])
-    }else if(categoryOptions.length != categoryOptions.indexOf(categoryCount)){
+      setCategoryGridSize(categoryOptions[categoryOptions.indexOf(categoryGridSize)+1])
+    }else if(categoryOptions.length != categoryOptions.indexOf(categoryGridSize)){
+      // otherwise if current grid is not full, place new category at the first "undefined" slot found
       setVotingCategories([
         ...votingCategories.slice(0, emptyIndex),
         category,
@@ -109,6 +119,7 @@ const Home: NextPage = () => {
   }
 
   const removeCategory = (index: number) =>{
+    // "remove" by replacing category at index with "undefined"
     setVotingCategories([
       ...votingCategories.slice(0, index),
       undefined,
@@ -120,6 +131,11 @@ const Home: NextPage = () => {
   const openPopup = (slotIndex: number) =>{
     setSlotIndex(slotIndex);
     setIsCreatingNew(true);
+  }
+
+  const createRegexListener = (category: { name: string }) =>{
+    const re = new RegExp(`${prefix}${category.name}`, 'gi');
+    return re;
   }
 
   return (
@@ -136,6 +152,7 @@ const Home: NextPage = () => {
         votingCategories={votingCategories}
         addVotingCategoryAtIndex={addVotingCategoryAtIndex}
         pushVotingCategory={pushVotingCategory}
+        createRegexListener={createRegexListener}
         slotIndex={slotIndex}
         setSlotIndex={setSlotIndex}
       />
@@ -144,8 +161,8 @@ const Home: NextPage = () => {
           addVotingCategory={addVotingCategoryAtIndex}
           setIsCreatingNew={setIsCreatingNew}
           isCreatingNew={isCreatingNew}
-          categoryCount={categoryCount}
-          setCategoryCount={setCategoryCount}
+          categoryCount={categoryGridSize}
+          setCategoryCount={setCategoryGridSize}
           categoryOptions={categoryOptions}
           handleFilter={handleFilter}
         />
@@ -160,7 +177,7 @@ const Home: NextPage = () => {
         />
         <div className='main__left main__vote-container'>
           {
-            Array.from(Array(Math.ceil(categoryCount/2))).map((value: any, index: number)=>{
+            Array.from(Array(Math.ceil(categoryGridSize/2))).map((value: any, index: number)=>{
               const location = index+index+1;
               const category = votingCategories[location];
               return (
@@ -169,7 +186,7 @@ const Home: NextPage = () => {
                   openPopup={openPopup}
                   categoryData={category}
                   index={location}
-                  categoryCount={categoryCount}
+                  categoryCount={categoryGridSize}
                   removeCategory={removeCategory}
                 />
               );
@@ -183,7 +200,7 @@ const Home: NextPage = () => {
         </div>
         <div className='main__right main__vote-container'>
           {
-            Array.from(Array(Math.floor(categoryCount/2))).map((value: any, index: number)=>{
+            Array.from(Array(Math.floor(categoryGridSize/2))).map((value: any, index: number)=>{
               const location = index*2;
               const category = votingCategories[location];
               return(
@@ -192,7 +209,7 @@ const Home: NextPage = () => {
                   openPopup={openPopup}
                   categoryData={category}
                   index={location}
-                  categoryCount={categoryCount}
+                  categoryCount={categoryGridSize}
                   removeCategory={removeCategory}
                 />
               )
