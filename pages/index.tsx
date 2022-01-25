@@ -79,9 +79,9 @@ const Home: NextPage = () => {
     );
   }
 
-  const addVotingCategoryAtIndex = (category: { name: string, color: string, votes: [], regexListener: string }, slotIndex: number, isEditing: boolean) =>{
+  const addVotingCategoryAtIndex = (category: { name: string, color: string, votes: [], regexListener: string }, slotIndex: number) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
-    if(!isFull || isEditing){
+    if(!isFull){
       // place/replace category at index
       setVotingCategories([
         ...votingCategories.slice(0, slotIndex), 
@@ -118,6 +118,14 @@ const Home: NextPage = () => {
     tmiAddCategory(category);
   }
 
+  const updateVotingCategory = (category: any, index: number) =>{
+    setVotingCategories([
+      ...votingCategories.slice(0, index),
+      category,
+      ...votingCategories.slice(index+1)
+    ]);
+  }
+
   const removeCategory = (index: number) =>{
     // "remove" by replacing category at index with "undefined"
     setVotingCategories([
@@ -151,6 +159,7 @@ const Home: NextPage = () => {
         setIsCreatingNew={setIsCreatingNew}
         votingCategories={votingCategories}
         addVotingCategoryAtIndex={addVotingCategoryAtIndex}
+        updateVotingCategory={updateVotingCategory}
         pushVotingCategory={pushVotingCategory}
         createRegexListener={createRegexListener}
         slotIndex={slotIndex}

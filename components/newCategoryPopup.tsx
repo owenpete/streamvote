@@ -9,6 +9,7 @@ interface Props{
   votingCategories: any;
   addVotingCategoryAtIndex: any;
   pushVotingCategory: any;
+  updateVotingCategory: any;
   createRegexListener: any;
   slotIndex: number | undefined;
   setSlotIndex: any;
@@ -80,9 +81,12 @@ const NewCategoryPopup = (props: Props) =>{
     setIsEditing(false);
   }
 
-  const popupAddCategory = (category: { name: string, color: { name: string, hex: string } }) =>{
+  const popupAddCategory = (popupData: { name: string, color: { name: string, hex: string } }) =>{
+    const hasSlotIndex: boolean = props.slotIndex != undefined;
+
     if(name != ''){
-      if(category.color.name == '' || category.color.hex == ''){
+      // generate random unique color if none is chosen
+      if(popupData.color.name == '' || popupData.color.hex == ''){
         const definedColors: any[] = props.votingCategories.filter((value: any)=>{
           return value!=undefined;
         }).map((value: any)=>value.color.name);
@@ -91,18 +95,43 @@ const NewCategoryPopup = (props: Props) =>{
           return !definedColors.includes(value.name);
         })
         const randomColorIndex = Math.round(Math.random()*(freeColors.length-1));
-        category.color = freeColors[randomColorIndex];
-      }else if(category.color.name == 'random'){
-        category.color = colors[Math.round(Math.random()*colors.length-1)];
+        popupData.color = freeColors[randomColorIndex];
+      }else if(popupData.color.name == 'random'){
+        popupData.color = colors[Math.round(Math.random()*colors.length-1)];
       }
       
-      if(props.slotIndex != undefined){
-        props.addVotingCategoryAtIndex({ ...category, votes: [], regexListener: props.createRegexListener(category) }, props.slotIndex, isEditing);
+      if(hasSlotIndex){
+        const category = {
+          //@ts-ignore
+          ...props.votingCategories[props.slotIndex],
+          ...popupData
+        }
+        if(isEditing){
+          //@ts-ignore
+          const hasNameChanged = props.votingCategories[props.slotIndex].name != name;
+          if(hasNameChanged){
+            props.updateVotingCategory({ 
+              ...category, 
+              votes: [] 
+            }, props.slotIndex);
+          }else{
+            props.updateVotingCategory(category, props.slotIndex);
+          }
+        }else{
+          props.addVotingCategoryAtIndex({ 
+            ...popupData, 
+            votes: [], 
+            regexListener: props.createRegexListener(popupData) 
+          }, props.slotIndex);
+        }
       }else{
-        props.pushVotingCategory({ ...category, votes: [], regexListener: props.createRegexListener(category)});
+        props.pushVotingCategory({ 
+          ...popupData, 
+          votes: [], 
+          regexListener: props.createRegexListener(popupData)
+        });
       }
-      resetPrompt();
-      props.setIsCreatingNew(false);
+      handlePopupClose();
     }
   }
 
@@ -166,7 +195,7 @@ const NewCategoryPopup = (props: Props) =>{
                     type="button"
                     value='Confirm'
                     className='actions__confirm actions'
-                    onClick={()=>popupAddCategory({ name: name, color: color})}
+                    onClick={()=>popupAddCategory({ name: name, color: color })}
                   />
                 </div>
                </div>
