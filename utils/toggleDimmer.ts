@@ -1,10 +1,11 @@
 const toggleDimmer = (isEnabled: boolean) =>{
+  const dimmerElement: HTMLElement = document.getElementById('dimmer')!;
     if(isEnabled){
-      document.getElementById('dimmer').style.backgroundColor='hsla(0, 0%, 0%, 35%)';
-      document.getElementById('dimmer').style.pointerEvents='none';
+      dimmerElement.style.backgroundColor='hsla(0, 0%, 0%, 35%)';
+      dimmerElement.style.pointerEvents='none';
     }else{
-      document.getElementById('dimmer').style.backgroundColor=null;
-      document.getElementById('dimmer').style.pointerEvents=null;
+      dimmerElement.style.backgroundColor='';
+      dimmerElement.style.pointerEvents='';
     }
 }
 
