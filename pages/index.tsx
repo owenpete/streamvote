@@ -151,6 +151,17 @@ const Home: NextPage = () => {
     setIsCreatingNew(true);
   }
 
+  const resetVoteCount = (index: number) =>{
+    setVotingCategories([
+      ...votingCategories.slice(0, index),
+      {
+        ...votingCategories[index],
+        votes: []
+      },
+      ...votingCategories.slice(index+1)
+    ]); 
+  }
+
   const createRegexListener = (category: { name: string }) =>{
     const re = new RegExp(`${prefix}${category.name}`, 'gi');
     return re;
@@ -206,6 +217,7 @@ const Home: NextPage = () => {
                   categoryData={category}
                   index={location}
                   categoryCount={categoryGridSize}
+                  resetVoteCount={resetVoteCount}
                   removeCategory={removeCategory}
                 />
               );
@@ -229,6 +241,7 @@ const Home: NextPage = () => {
                   categoryData={category}
                   index={location}
                   categoryCount={categoryGridSize}
+                  resetVoteCount={resetVoteCount}
                   removeCategory={removeCategory}
                 />
               )

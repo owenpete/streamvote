@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { FiPlus, FiSettings, FiTrash } from 'react-icons/fi';
+import { FiPlus, FiRotateCw, FiSettings, FiTrash } from 'react-icons/fi';
 
 interface Props{
   categoryData: any;
   openPopup: any;
   index: number;
   categoryCount: number;
+  resetVoteCount: any;
   removeCategory: any;
 }
 
@@ -27,6 +28,10 @@ const VoteItem = (props: Props) =>{
             <FiSettings 
               className='hover__icon'
               onClick={()=>props.openPopup(props.index)}
+            />
+            <FiRotateCw 
+              className='hover__icon'
+              onClick={()=>props.resetVoteCount(props.index)}
             />
             <FiTrash 
               className='hover__icon'
