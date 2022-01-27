@@ -35,12 +35,21 @@ const Home: NextPage = () => {
     setCategoryGridSize(+categoryCount);
   }
 
+  const updateLeaderboard = (categories: any) =>{
+    const categoryCopy = [...categories];
+    const topCategories = categoryCopy.sort((a: any, b: any)=>{
+      return b.votes.length - a.votes.length;
+    });
+    setLeaderboard(topCategories);
+  }
+
   useEffect(()=>{
     let timerFunc = setInterval(() => {
+      // spreading data to trigger state update
       setChatData({
-        messages: tmiGetMessages()
+        messages: [...tmiGetMessages()]
       });
-      setVotingCategories(tmiGetCategories());
+      setVotingCategories([...tmiGetCategories()]);
     }, 1000);
     return () => clearInterval(timerFunc)
   });
@@ -48,6 +57,7 @@ const Home: NextPage = () => {
   useEffect(()=>{
     // updates backend data when fontend category is added
     tmiSetCategory(votingCategories);
+    updateLeaderboard(votingCategories);
   }, [votingCategories])
 
   useEffect(()=>{
@@ -182,7 +192,7 @@ const Home: NextPage = () => {
           setIsVoting={setIsVoting}
         />
         <Leaderboard 
-          leaderboard={votingCategories.slice(0, 3)}
+          leaderboard={leaderboard.slice(0, 3)}
         />
         <div className='main__left main__vote-container'>
           {
