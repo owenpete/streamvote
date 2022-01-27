@@ -30,7 +30,7 @@ const VoteItem = (props: Props) =>{
               onClick={()=>props.openPopup(props.index)}
             />
             <FiRotateCw 
-              className='hover__icon'
+              className='hover__icon icon__reset'
               onClick={()=>props.resetVoteCount(props.index)}
             />
             <FiTrash 
