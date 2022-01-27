@@ -10,7 +10,7 @@
     'controls timer ...' 
     'vote-right leaderboard vote-left'
     'vote-right chat vote-left';
-  grid-template-columns: 30% auto 30%;
+  grid-template-columns: 2fr 3fr 2fr;
   grid-template-rows: auto auto auto;
   grid-gap: 2rem;
   height: 100%;
@@ -55,6 +55,8 @@
 .main__center{
   grid-area: chat;
   width: 100%;
+  // dont know why this works but ill take it :)
+  min-width: 0px;
 }
 
 .main__left{

@@ -12,6 +12,7 @@
   border-radius: 5px;
   height: 100%;
   width: 100%;
+  overflow-wrap: break-word;
   overflow-x: hidden;
   overflow-y: scroll;
   &::-webkit-scrollbar {
