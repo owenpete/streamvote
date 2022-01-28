@@ -163,6 +163,8 @@ const Home: NextPage = () => {
   }
 
   const createRegexListener = (category: { name: string }) =>{
+    // input: "*"
+    // SyntaxError: Invalid regular expression: /*/: Nothing to repeat
     const re = new RegExp(`${prefix}${category.name}`, 'gi');
     return re;
   }
