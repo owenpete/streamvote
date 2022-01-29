@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { GiConsoleController } from "react-icons/gi";
 
 interface Props{
   isTimerRunning: boolean;
@@ -7,7 +8,121 @@ interface Props{
   setIsTimerRunning: any;
 }
 
+const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
+  const [finalTime, setFinalTime] = useState<string>('');
+  const [editingDisplay, setEditingDisplay] = useState<string[]>(['0', '0', 'h', '0', '0', 'm', '0', '0', 's'])
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const timeInputRef = useRef<any>();
+  const hours = Math.floor(props.timer/3600);
+  const mins = Math.floor((props.timer-hours*3600)/60);
+  const secs = props.timer - mins * 60;
+
+  useEffect(()=>{
+    setFinalTime(createTimeString(hours, mins, secs));
+  }, [props.timer])
+
+
+  const editDisplay = () =>{
+    setIsEditing(true);
+  }
+
+  const createTimeString = (hours: number, mins: number, secs: number) =>{
+    const str_pad_left = (string: any, pad: string, length: number) =>{
+      return (new Array(length+1).join(pad)+string).slice(-length);
+    }
+    let timeString = hours+':'+str_pad_left(mins, '0', 2)+':'+str_pad_left(secs,'0',2);
+    return timeString;
+  }
+
+  const handleTimeChange = (input: string) =>{
+    const isNumber = !isNaN(+input); 
+    if(isNumber && input != ' '){
+      const digits: string[] = editingDisplay.filter((value: any)=>!isNaN(value));
+      const timeSymbols: string[] = editingDisplay.filter((value: any)=>isNaN(value));
+      digits.shift();
+      digits.push(input);
+  
+      let finalArr: string[] = [];
+      for(let i = 0; i < digits.length; i++){
+        if(i%2!=0){
+          finalArr.push(digits[i]);
+          finalArr.push(timeSymbols[Math.floor(i/2)])
+        }else{
+          finalArr.push(digits[i]);
+        }
+      }
+      setEditingDisplay(finalArr);
+    }else if(input == 'Backspace'){
+      const digits: string[] = editingDisplay.filter((value: any)=>!isNaN(value));
+      const timeSymbols: string[] = editingDisplay.filter((value: any)=>isNaN(value));
+      digits.pop();
+      digits.unshift('0');
+  
+      let finalArr: string[] = [];
+      for(let i = 0; i < digits.length; i++){
+        if(i%2!=0){
+          finalArr.push(digits[i]);
+          finalArr.push(timeSymbols[Math.floor(i/2)])
+        }else{
+          finalArr.push(digits[i]);
+        }
+      }
+      setEditingDisplay(finalArr);
+    }else if(input == 'Enter'){
+      const digits = editingDisplay.filter((value: any)=>!isNaN(value));
+      let hmsArray = [];
+      for(let i = 0; i < digits.length; i+=2){
+        hmsArray.push(`${digits[i]}${digits[i+1]}`)
+      }
+      const hours = +hmsArray[0];
+      const mins = +hmsArray[1];
+      const secs = +hmsArray[2];
+
+      setFinalTime(createTimeString(hours, mins, secs));
+      setIsEditing(false);
+    }else if(input == 'Escape'){
+      setIsEditing(false);
+    }
+  }
+
+  return (
+    <span 
+      className='timer__display'
+      onClick={()=>editDisplay()}
+    >
+      <span
+        className={`display__time ${isEditing? 'display__time--editing' : ''}`}
+        onClick={()=>timeInputRef.current.focus()}
+      >
+        {
+          isEditing?
+            editingDisplay.map((value: any, index: number)=>{
+              const firstOccupiedIndex = editingDisplay.join('').search(/[^0a-zA-Z]/g);
+              return (
+                <span 
+                  className={`time__element ${isNaN(value) ? 'time__step' : 'time__number'}`} 
+                  style={{color: `${firstOccupiedIndex < index+1 && firstOccupiedIndex != -1 ? 'rgb(255, 255, 255)' : ''}`}}
+                >
+                  {value}
+                </span>
+              )
+            })
+            :
+            finalTime
+        }
+      </span>
+      <input
+        className='time__input'
+        type='text'
+        ref={timeInputRef}
+        onKeyDownCapture={(e: any)=>handleTimeChange(e.nativeEvent.key)}
+      />
+    </span>
+  )
+}
+
 const Timer = (props: Props) =>{
+  const [timer, setTimer] = useState<number>(300);
 
   const handleTimerButtonClick = (button: 'stop' | 'start') =>{
     switch(button){
@@ -24,7 +139,10 @@ const Timer = (props: Props) =>{
 
   return (
     <div className="timer">
-      5:00
+      <TimerDisplay
+        timer={timer}
+        setTimer={setTimer}
+      />
       {
         props.isTimerRunning?
         <input 
