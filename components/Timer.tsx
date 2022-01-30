@@ -19,8 +19,11 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
 
   useEffect(()=>{
     setFinalTime(createTimeString(hours, mins, secs));
-  }, [props.timer])
+  }, []);
 
+  useEffect(()=>{
+    convertStringToSeconds(finalTime);
+  }, [finalTime])
 
   const editDisplay = () =>{
     setIsEditing(true);
@@ -83,6 +86,15 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
     }else if(input == 'Escape'){
       setIsEditing(false);
     }
+  }
+
+  const convertStringToSeconds = (timeString: string) =>{
+    const splitTime = timeString.split(':');
+    const hours = +splitTime[0]; 
+    const mins = +splitTime[1]; 
+    const secs = +splitTime[2]; 
+    const total = (hours*3600) + (mins*60) + secs;
+    props.setTimer(total);
   }
 
   return (
