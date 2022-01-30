@@ -19,11 +19,7 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
 
   useEffect(()=>{
     setFinalTime(createTimeString(hours, mins, secs));
-  }, []);
-
-  useEffect(()=>{
-    convertStringToSeconds(finalTime);
-  }, [finalTime])
+  }, [props.timer]);
 
   const editDisplay = () =>{
     setIsEditing(true);
@@ -77,24 +73,21 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
       for(let i = 0; i < digits.length; i+=2){
         hmsArray.push(`${digits[i]}${digits[i+1]}`)
       }
-      const hours = +hmsArray[0];
-      const mins = +hmsArray[1];
-      const secs = +hmsArray[2];
 
-      setFinalTime(createTimeString(hours, mins, secs));
+      const total = convertStringToSeconds(hmsArray);
+      props.setTimer(total);
       setIsEditing(false);
     }else if(input == 'Escape'){
       setIsEditing(false);
     }
   }
 
-  const convertStringToSeconds = (timeString: string) =>{
-    const splitTime = timeString.split(':');
-    const hours = +splitTime[0]; 
-    const mins = +splitTime[1]; 
-    const secs = +splitTime[2]; 
+  const convertStringToSeconds = (hms: string[]) =>{
+    const hours = +hms[0]; 
+    const mins = +hms[1]; 
+    const secs = +hms[2]; 
     const total = (hours*3600) + (mins*60) + secs;
-    props.setTimer(total);
+    return total;
   }
 
   return (
@@ -114,6 +107,7 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
                 <span 
                   className={`time__element ${isNaN(value) ? 'time__step' : 'time__number'}`} 
                   style={{color: `${firstOccupiedIndex < index+1 && firstOccupiedIndex != -1 ? 'rgb(255, 255, 255)' : ''}`}}
+                  key={index}
                 >
                   {value}
                 </span>
@@ -135,6 +129,22 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
 
 const Timer = (props: Props) =>{
   const [timer, setTimer] = useState<number>(300);
+
+  useEffect(()=>{
+    let timerInterval: any;
+    if(props.isTimerRunning){
+      timerInterval = setInterval(()=>{
+        if(timer != 0){
+          setTimer(timer => timer - 1);
+        }else{
+          props.setIsTimerRunning(false);
+        }
+      }, 1000);
+    }else{
+      clearInterval(timerInterval);
+    }
+    return () => clearInterval(timerInterval);
+  });
 
   const handleTimerButtonClick = (button: 'stop' | 'start') =>{
     switch(button){
