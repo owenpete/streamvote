@@ -29,15 +29,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 0.5rem;
   height: 100%;
   width: auto;
   .display__time{
     height: 100%;
     width: 100%;
     background-color: hsl(215, 15%, 25%);
+    padding: 0.5rem 1rem;
     z-index: 5;
     &--editing{
       color: gray;
+    }
+    &--focus{
+      outline: 2px solid hsl(197, 80%, 48%);
+      border-radius: 5px;
     }
   }
   .time__input{

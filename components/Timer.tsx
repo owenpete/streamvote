@@ -18,6 +18,7 @@ const TimerDisplay = (props: TimerDisplayProps) =>{
   const [finalTime, setFinalTime] = useState<string>('');
   const [editingDisplay, setEditingDisplay] = useState<string[]>(['0', '0', 'h', '0', '0', 'm', '0', '0', 's'])
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditingFocus, setIsEditingFocus] = useState<boolean>(false);
   const timeInputRef = useRef<any>();
   const hours = Math.floor(props.timer/3600);
   const mins = Math.floor((props.timer-hours*3600)/60);
@@ -33,6 +34,12 @@ const TimerDisplay = (props: TimerDisplayProps) =>{
       setIsEditing(false);
     }
   }, [props.isTimerRunning])
+
+  useEffect(()=>{
+    if(!isEditing){
+      timeInputRef.current.blur();
+    }
+  }, [isEditing])
 
   const editDisplay = () =>{
     setIsEditing(true);
@@ -112,7 +119,7 @@ const TimerDisplay = (props: TimerDisplayProps) =>{
       onClick={()=>editDisplay()}
     >
       <span
-        className={`display__time ${isEditing? 'display__time--editing' : ''}`}
+        className={`display__time ${isEditing? 'display__time--editing' : ''} ${isEditingFocus? 'display__time--focus' : ''}`}
         onClick={()=>timeInputRef.current.focus()}
       >
         {
@@ -138,6 +145,8 @@ const TimerDisplay = (props: TimerDisplayProps) =>{
         type='text'
         ref={timeInputRef}
         onKeyDownCapture={(e: any)=>handleTimeChange(e.nativeEvent.key)}
+        onFocus={(e: any)=>setIsEditingFocus(true)}
+        onBlur={(e: any)=>setIsEditingFocus(false)}
       />
     </span>
   )
