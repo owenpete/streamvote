@@ -1,14 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { GiConsoleController } from "react-icons/gi";
 
-interface Props{
+interface TimerProps{
   isTimerRunning: boolean;
   isVoting: boolean;
   setIsVoting: any;
   setIsTimerRunning: any;
 }
 
-const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
+interface TimerDisplayProps{
+  timer: number;
+  setTimer: any;
+  isTimerRunning: boolean;
+}
+
+const TimerDisplay = (props: TimerDisplayProps) =>{
   const [finalTime, setFinalTime] = useState<string>('');
   const [editingDisplay, setEditingDisplay] = useState<string[]>(['0', '0', 'h', '0', '0', 'm', '0', '0', 's'])
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -20,6 +26,13 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
   useEffect(()=>{
     setFinalTime(createTimeString(hours, mins, secs));
   }, [props.timer]);
+
+  useEffect(()=>{
+    if(isEditing && props.isTimerRunning){
+      updateTimer(editingDisplay);
+      setIsEditing(false);
+    }
+  }, [props.isTimerRunning])
 
   const editDisplay = () =>{
     setIsEditing(true);
@@ -68,18 +81,21 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
       }
       setEditingDisplay(finalArr);
     }else if(input == 'Enter'){
-      const digits = editingDisplay.filter((value: any)=>!isNaN(value));
-      let hmsArray = [];
-      for(let i = 0; i < digits.length; i+=2){
-        hmsArray.push(`${digits[i]}${digits[i+1]}`)
-      }
-
-      const total = convertStringToSeconds(hmsArray);
-      props.setTimer(total);
+      updateTimer(editingDisplay);
       setIsEditing(false);
     }else if(input == 'Escape'){
       setIsEditing(false);
     }
+  }
+
+  const updateTimer = (timeArr: string[]) =>{
+      const digits = timeArr.filter((value: any)=>!isNaN(value));
+      let hmsArray = [];
+      for(let i = 0; i < digits.length; i+=2){
+        hmsArray.push(`${digits[i]}${digits[i+1]}`)
+      }
+      const total = convertStringToSeconds(hmsArray);
+      props.setTimer(total);
   }
 
   const convertStringToSeconds = (hms: string[]) =>{
@@ -127,7 +143,7 @@ const TimerDisplay = (props: { timer: number, setTimer: any }) =>{
   )
 }
 
-const Timer = (props: Props) =>{
+const Timer = (props: TimerProps) =>{
   const [timer, setTimer] = useState<number>(300);
 
   useEffect(()=>{
@@ -164,6 +180,7 @@ const Timer = (props: Props) =>{
       <TimerDisplay
         timer={timer}
         setTimer={setTimer}
+        isTimerRunning={props.isTimerRunning}
       />
       {
         props.isTimerRunning?
