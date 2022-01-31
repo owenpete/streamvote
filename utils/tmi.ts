@@ -1,3 +1,4 @@
+import { read, readSync } from 'fs';
 import { connected } from 'process';
 import { GiConsoleController } from 'react-icons/gi';
 import tmi from 'tmi.js';
@@ -6,11 +7,12 @@ let prefix: string = '';
 const maxChatSize: number = 50;
 let isVoting: boolean = false;
 let votingCategories: any[] = [];
+let currentChannel: string[] = [];
 
 let messages: any[] = [];
 
 const client = new tmi.Client({
-  channels: ['xqcow']
+  channels: currentChannel 
 });
 
 export const tmiAddCategory = (category: { name: string, color: string}) =>{
@@ -64,6 +66,25 @@ export const tmiGetPrefix = () =>{
   return prefix; 
 }
 
+export const tmiSetCurrentChannel = (channel: string) =>{
+  currentChannel[0] = channel;
+}
+
+export const tmiGetCurrentChannel = () =>{
+  return currentChannel[0];
+}
+
+export const tmiConnect = async() =>{
+  const readyState = client.readyState();
+  if(readyState == 'OPEN'){
+    await client.disconnect();
+    await client.connect();
+  }
+  if(readyState == 'CLOSED'){
+    await client.connect();
+  }
+}
+
 const listenForVotes = (message: string, user: string) =>{
   const firstWord = message.split(' ')[0];
   if(firstWord.slice(0, prefix.length).toLowerCase() == prefix){
@@ -99,7 +120,7 @@ const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{
 
 client.on('message', onMessageHandler)
 
-client.connect();
+tmiConnect();
 
 export { 
   messages,

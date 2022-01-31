@@ -7,7 +7,7 @@
   justify-items: center;
   align-content: center;
   grid-template-areas: 
-    'controls timer ...' 
+    'controls timer channelName' 
     'vote-right leaderboard vote-left'
     'vote-right chat vote-left';
   grid-template-columns: 2fr 3fr 2fr;
@@ -24,6 +24,36 @@
     height: 100%;
     width: 100%;
     border-radius: 5px;
+  }
+  &__channel-name{
+    display: flex;
+    justify-content: flex-end;
+    grid-area: channelName;
+    font-weight: 600;
+    font-size: 18px;
+    color: hsl(8, 100%, 70%); 
+    width: 100%;
+    height: fit-content;
+    margin-right: 4rem;
+    .channel-name__prefix{
+      font-weight: 400;
+      margin-right: 0.5rem;
+      color: white;
+    }
+    .channel-name__name{
+      display: flex;
+      align-items: flex-start;
+      user-select: none;
+      transition: all 100ms ease-in-out;
+      &:hover{
+        color: white;
+      }
+      .name__edit-icon{
+        margin-left: 0.5rem;
+        font-weight: 600;
+        font-size: 21px;
+      }
+    }
   }
 }
 

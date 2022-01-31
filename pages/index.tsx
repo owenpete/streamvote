@@ -11,8 +11,9 @@ import VoteControls from '../components/VoteControls';
 import NewCategoryPopup from '../components/NewCategoryPopup';
 import VoteItem from '../components/VoteItem';
 
-import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, tmiGetMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix, tmiSetCategory } from '../utils/tmi'; 
+import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, tmiGetMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix, tmiSetCategory, tmiGetCurrentChannel, tmiSetCurrentChannel, tmiConnect } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
+import { FiEdit } from 'react-icons/fi';
 
 interface ChatData{
   messages: any[];
@@ -21,6 +22,7 @@ interface ChatData{
 const Home: NextPage = () => {
   const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
   const [votingCategories, setVotingCategories] = useState<any>([]);
+  const [currentChannel, setCurrentChannel] = useState<string>('');
   const [leaderboard, setLeaderboard] = useState<any>([]);
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
@@ -50,6 +52,7 @@ const Home: NextPage = () => {
         messages: [...tmiGetMessages()]
       });
       setVotingCategories([...tmiGetCategories()]);
+      setCurrentChannel(tmiGetCurrentChannel());
     }, 1000);
     return () => clearInterval(timerFunc)
   });
@@ -80,6 +83,11 @@ const Home: NextPage = () => {
   useEffect(()=>{
     tmiSetPrefix(prefix);
   }, [prefix])
+
+  useEffect(()=>{
+    tmiSetCurrentChannel(currentChannel);
+    tmiConnect();
+  }, [currentChannel])
 
   const handleOverflow = () =>{
     // create an array of categories then slice to fit within size params
@@ -204,6 +212,20 @@ const Home: NextPage = () => {
           isVoting={isVoting}
           setIsVoting={setIsVoting}
         />
+        <span className='main__channel-name'>
+          <span
+            className='channel-name__prefix'
+          >
+            Current Channel:
+          </span>
+          <span 
+            className='channel-name__name'
+            onClick={(e: any)=>{}}
+          >
+            {currentChannel}
+            <FiEdit className='name__edit-icon'/>
+          </span>
+        </span>
         <Leaderboard 
           leaderboard={leaderboard.slice(0, 3)}
         />
