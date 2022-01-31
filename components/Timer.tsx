@@ -154,6 +154,7 @@ const Timer = (props: TimerProps) =>{
           setTimer(timer => timer - 1);
         }else{
           props.setIsTimerRunning(false);
+          props.setIsVoting(false);
         }
       }, 1000);
     }else{
