@@ -1,0 +1,40 @@
+.new-channel-popup{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}
+
+.new-channel-popup__input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  width: 50%;
+  background-color: hsl(215, 15%, 35%);
+  border-radius: 5px;
+  padding: 1.5rem 2rem;
+  .new-channel-popup__text-input{
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 21px;
+    color: white;
+    background-color: hsl(215, 15%, 35%);
+  }
+  .new-channel-popup__confirm-icon{
+    font-size: 38px;
+    color: white;
+    transition: all 100ms ease-in-out;
+    &:hover{
+      color: hsl(142, 53%, 62%);
+    }
+    &:active{
+      color: hsl(142, 53%, 40%);
+    }
+  }
+}
