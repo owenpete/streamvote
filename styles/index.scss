@@ -1,0 +1,38 @@
+.index{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 0 25%;
+}
+
+.index__input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  background-color: hsl(215, 15%, 35%);
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+  .input__text-input{
+    border: none;
+    outline: none;
+    font-size: 21px;
+    color: white;
+    background-color: hsl(215, 15%, 35%);
+  }
+  .input__confirm-icon{
+    font-size: 38px;
+    color: white;
+    transition: all 100ms ease-in-out;
+    &:hover{
+      color: hsl(142, 53%, 62%);
+    }
+    &:active{
+      color: hsl(142, 53%, 40%);
+    }
+  }
+}
