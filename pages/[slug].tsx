@@ -16,11 +16,24 @@ import toggleDimmer from '../utils/toggleDimmer';
 import { FiEdit } from 'react-icons/fi';
 import NewChannelPopup from '../components/NewChannelPopup';
 
+interface Props{
+  channel: string;
+}
+
 interface ChatData{
   messages: any[];
 }
 
-const Home: NextPage = () => {
+export const getServerSideProps = async({ query }: { query: any }) =>{
+  const channel: string = query.slug;
+  return {
+    props: {
+      channel: channel
+    }
+  }
+}
+
+const Home = (props: Props) => {
   const [chatData, setChatData] = useState<ChatData | undefined>(undefined);
   const [votingCategories, setVotingCategories] = useState<any>([]);
   const [currentChannel, setCurrentChannel] = useState<string>('');
@@ -46,6 +59,12 @@ const Home: NextPage = () => {
     });
     setLeaderboard(topCategories);
   }
+
+  useEffect(()=>{
+    setCurrentChannel(props.channel);
+    tmiSetCurrentChannel(props.channel);
+    tmiConnect();
+  }, []);
 
   useEffect(()=>{
     let timerFunc = setInterval(() => {
@@ -85,10 +104,6 @@ const Home: NextPage = () => {
   useEffect(()=>{
     tmiSetPrefix(prefix);
   }, [prefix])
-
-  useEffect(()=>{
-    tmiSetCurrentChannel(currentChannel);
-  }, [currentChannel])
 
   const handleOverflow = () =>{
     // create an array of categories then slice to fit within size params
