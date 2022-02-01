@@ -75,14 +75,19 @@ export const tmiGetCurrentChannel = () =>{
 }
 
 export const tmiConnect = async() =>{
-  const readyState = client.readyState();
-  if(readyState == 'OPEN'){
-    await client.disconnect();
-    await client.connect();
-  }
-  if(readyState == 'CLOSED'){
-    await client.connect();
-  }
+  console.log('connecting')
+  await client.connect();
+  console.log('connected')
+}
+
+export const tmiDisconnect = async() =>{
+  console.log('disconnecting')
+  await client.disconnect();
+  console.log('disconnected')
+}
+
+export const tmiGetReadyState = (): "CONNECTING" | "OPEN" | "CLOSING" | "CLOSED" =>{
+  return client.readyState();
 }
 
 const listenForVotes = (message: string, user: string) =>{
@@ -119,8 +124,6 @@ const onMessageHandler = (target: any, tags: any, msg: string, self: any)=>{
 }
 
 client.on('message', onMessageHandler)
-
-tmiConnect();
 
 export { 
   messages,
