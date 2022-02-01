@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 import '../styles/index.scss';
+import '../styles/main.scss';
 import '../styles/chatbox.scss';
 import '../styles/navbar.scss';
 import '../styles/voteItem.scss';
