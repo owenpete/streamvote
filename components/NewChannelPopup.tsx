@@ -39,6 +39,7 @@ const NewChannelPopup = (props: Props) =>{
               placeholder='Channel Name'
               value={channelName}
               onChange={(e: any)=>setChannelName(e.target.value)}
+              onKeyDown={(e: any)=>e.key == 'Enter' ? handleChannelNameConfirm(channelName) : null}
               autoFocus={true}
           />
           <FiArrowRightCircle 
