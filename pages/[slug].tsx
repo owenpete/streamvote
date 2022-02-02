@@ -244,7 +244,7 @@ const Home = (props: Props) => {
       <div className="main">
         <div className='main__header'>
           <div className='main__header-left'>
-            {windowSize > 700 ?
+            {windowSize! > 700 ?
               <VoteControls 
                 addVotingCategory={addVotingCategoryAtIndex}
                 setIsCreatingNew={setIsCreatingNew}
@@ -268,7 +268,7 @@ const Home = (props: Props) => {
             setIsVoting={setIsVoting}
           />
           <span className='main__channel-name'>
-            {windowSize > 700&&
+            {windowSize! > 700&&
               <span
                 className='channel-name__prefix'
               >
