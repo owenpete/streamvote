@@ -1,6 +1,7 @@
 import Router from "next/router";
 import NProgress from "nprogress";
 import "../styles/nprogress.scss";
+import '../styles/reset.scss';
 
 import '../styles/globals.css';
 import '../styles/index.scss';
