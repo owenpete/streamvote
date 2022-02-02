@@ -4,7 +4,7 @@
   justify-content: center;
   height: 100%;
   width: 100%;
-  padding: 0 25%;
+  padding: 0 10%;
 }
 
 .index__input{
@@ -17,6 +17,7 @@
   background-color: hsl(215, 15%, 35%);
   border-radius: 5px;
   padding: 1rem 1.5rem;
+  max-width: 800px;
   .input__text-input{
     border: none;
     outline: none;
