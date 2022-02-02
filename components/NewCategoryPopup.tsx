@@ -138,6 +138,15 @@ const NewCategoryPopup = (props: Props) =>{
     }
   }
 
+  const handleKeyDown = (key: any) =>{
+    const hasName = name != '';
+    if(key == 'Enter' && hasName){
+      popupAddCategory({ name: name, color: color });
+    }else if(key == 'Escape'){
+      handlePopupClose();
+    }
+  }
+
   const handlePopupClose = () =>{
     resetPrompt();
     props.setIsCreatingNew(false);
@@ -163,6 +172,7 @@ const NewCategoryPopup = (props: Props) =>{
                 value={name}
                 autoFocus={true}
                 onChange={(e: any)=>handleNameUpdate(e.target.value)}
+                onKeyDownCapture={(e: any)=>{handleKeyDown(e.key)}}
                /> 
                 <span className='popup__character-count'>
                   {name.length} / {maxNameLength}
