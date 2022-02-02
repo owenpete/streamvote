@@ -13,7 +13,7 @@ import VoteItem from '../components/VoteItem';
 import MainMenu from '../components/MainMenu';
 
 import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, tmiGetMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix, tmiSetCategory, tmiGetCurrentChannel, tmiSetCurrentChannel, tmiConnect, tmiGetReadyState, tmiDisconnect } from '../utils/tmi'; 
-import { FiEdit, FiMenu } from 'react-icons/fi';
+import { FiEdit, FiMenu, FiSettings } from 'react-icons/fi';
 import NewChannelPopup from '../components/NewChannelPopup';
 
 interface Props{
@@ -255,7 +255,7 @@ const Home = (props: Props) => {
                 handleFilter={handleFilter}
               />
               :
-              <FiMenu 
+              <FiSettings 
                 className='main-menu__icon' 
                 onClick={(e: any)=>setIsMenuOpen(true)}
               />
