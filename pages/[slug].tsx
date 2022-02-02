@@ -108,6 +108,7 @@ const Home = (props: Props) => {
   }, [prefix])
 
   useEffect(()=>{
+    getWindowSize();
     window.addEventListener('resize', getWindowSize);
     return () => window.removeEventListener('resize', getWindowSize);
   }, [])
