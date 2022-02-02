@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -10,10 +10,11 @@ import Timer from '../components/Timer';
 import VoteControls from '../components/VoteControls';
 import NewCategoryPopup from '../components/NewCategoryPopup';
 import VoteItem from '../components/VoteItem';
+import MainMenu from '../components/MainMenu';
 
 import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, tmiGetMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix, tmiSetCategory, tmiGetCurrentChannel, tmiSetCurrentChannel, tmiConnect, tmiGetReadyState, tmiDisconnect } from '../utils/tmi'; 
 import toggleDimmer from '../utils/toggleDimmer';
-import { FiEdit } from 'react-icons/fi';
+import { FiEdit, FiMenu } from 'react-icons/fi';
 import NewChannelPopup from '../components/NewChannelPopup';
 
 interface Props{
@@ -43,10 +44,12 @@ const Home = (props: Props) => {
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
   const [slotIndex, setSlotIndex] = useState<number | undefined>(undefined);
   const [isVoting, setIsVoting] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [prefix, setPrefix] = useState<string>('');
   const categoryOptions = [2, 4, 6, 8];
 
   const [categoryGridSize, setCategoryGridSize] = useState<any>(categoryOptions[0]);
+  const [windowSize, setWindowSize] = useState<number>();
 
   const handleFilter = (categoryCount: string) =>{
     setCategoryGridSize(+categoryCount);
@@ -104,6 +107,16 @@ const Home = (props: Props) => {
   useEffect(()=>{
     tmiSetPrefix(prefix);
   }, [prefix])
+
+  useEffect(()=>{
+    window.addEventListener('resize', getWindowSize);
+    return () => window.removeEventListener('resize', getWindowSize);
+  }, [])
+
+  const getWindowSize = () =>{
+    const isClient = typeof window === 'object';
+    setWindowSize(isClient ? window.innerWidth : undefined);
+  }
 
   const handleOverflow = () =>{
     // create an array of categories then slice to fit within size params
@@ -201,6 +214,17 @@ const Home = (props: Props) => {
         <meta name="viewport" content="width=device-width, maximum-scale=1, maximum-scale=1.0, user-scalable=0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <MainMenu 
+        isOpen={isMenuOpen}
+        setIsOpen={setIsMenuOpen}
+        addVotingCategory={addVotingCategoryAtIndex}
+        setIsCreatingNew={setIsCreatingNew}
+        isCreatingNew={isCreatingNew}
+        categoryCount={categoryGridSize}
+        setCategoryCount={setCategoryGridSize}
+        categoryOptions={categoryOptions}
+        handleFilter={handleFilter}
+      />
       <NewCategoryPopup 
         isCreatingNew={isCreatingNew}
         setIsCreatingNew={setIsCreatingNew}
@@ -218,35 +242,48 @@ const Home = (props: Props) => {
         setIsSettingNewChannel={setIsSettingNewChannel}
       />
       <div className="main">
-        <VoteControls 
-          addVotingCategory={addVotingCategoryAtIndex}
-          setIsCreatingNew={setIsCreatingNew}
-          isCreatingNew={isCreatingNew}
-          categoryCount={categoryGridSize}
-          setCategoryCount={setCategoryGridSize}
-          categoryOptions={categoryOptions}
-          handleFilter={handleFilter}
-        />
-        <Timer
-          isTimerRunning={isTimerRunning}
-          setIsTimerRunning={setIsTimerRunning}
-          isVoting={isVoting}
-          setIsVoting={setIsVoting}
-        />
-        <span className='main__channel-name'>
-          <span
-            className='channel-name__prefix'
-          >
-            Current Channel:
+        <div className='main__header'>
+          <div className='main__header-left'>
+            {windowSize > 700 ?
+              <VoteControls 
+                addVotingCategory={addVotingCategoryAtIndex}
+                setIsCreatingNew={setIsCreatingNew}
+                isCreatingNew={isCreatingNew}
+                categoryCount={categoryGridSize}
+                setCategoryCount={setCategoryGridSize}
+                categoryOptions={categoryOptions}
+                handleFilter={handleFilter}
+              />
+              :
+              <FiMenu 
+                className='main-menu__icon' 
+                onClick={(e: any)=>setIsMenuOpen(true)}
+              />
+            }
+          </div>
+          <Timer
+            isTimerRunning={isTimerRunning}
+            setIsTimerRunning={setIsTimerRunning}
+            isVoting={isVoting}
+            setIsVoting={setIsVoting}
+          />
+          <span className='main__channel-name'>
+            {windowSize > 700&&
+              <span
+                className='channel-name__prefix'
+              >
+                  Current Channel:
+              </span>
+            }
+            <span 
+              className='channel-name__name'
+              onClick={(e: any)=>{setIsSettingNewChannel(true)}}
+            >
+              {currentChannel}
+              <FiEdit className='name__edit-icon'/>
+            </span>
           </span>
-          <span 
-            className='channel-name__name'
-            onClick={(e: any)=>{setIsSettingNewChannel(true)}}
-          >
-            {currentChannel}
-            <FiEdit className='name__edit-icon'/>
-          </span>
-        </span>
+        </div>
         <Leaderboard 
           leaderboard={leaderboard.slice(0, 3)}
         />

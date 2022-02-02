@@ -13,6 +13,7 @@ import '../styles/leaderboard.scss';
 import '../styles/voteControls.scss';
 import '../styles/newCategoryPopup.scss';
 import '../styles/newChannelPopup.scss';
+import '../styles/mainMenu.scss';
 import type { AppProps } from 'next/app'
 
 NProgress.configure({ showSpinner: false });

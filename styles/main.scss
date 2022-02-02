@@ -7,7 +7,7 @@
   justify-items: center;
   align-content: center;
   grid-template-areas: 
-    'controls timer channelName' 
+    'header header header' 
     'vote-right leaderboard vote-left'
     'vote-right chat vote-left';
   grid-template-columns: 2fr 3fr 2fr;
@@ -16,6 +16,18 @@
   height: 100%;
   width: 100%;
   padding: 0 2%;
+  &__header{
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    grid-template-areas: 
+      'header-left timer channelName'; 
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 4rem;
+    width: 100%;
+    grid-area: header;
+  }
   &__vote-container{
     position: relative;
     display: flex;
@@ -28,16 +40,16 @@
   &__channel-name{
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
     grid-area: channelName;
     font-weight: 600;
     font-size: 18px;
     color: hsl(8, 100%, 70%); 
     width: 100%;
     height: fit-content;
-    margin-right: 4rem;
     .channel-name__prefix{
       font-weight: 400;
-      margin-right: 0.5rem;
       color: white;
     }
     .channel-name__name{
@@ -70,8 +82,11 @@
   grid-area: timer;
 }
 
-.vote-controls{
-  grid-area: controls;
+.main__header-left{
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  grid-area: header-left;
 }
 
 .leaderboard{
@@ -95,4 +110,102 @@
 
 .main__right, .main__left{
   height: 100%;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 700px){
+  .main__header{
+    margin-top: 0.5rem;
+    grid-gap: 0;
+    grid-template-areas: 
+      'header-left channelName ...' 
+      '... timer ...'; 
+    grid-template-rows: auto auto;
+  }
+  .main__channel-name{
+    margin: 0;
+    align-items: center;
+  }
+  .popup__color-selector{
+    width: 100%;
+    overflow: scroll hidden;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px){
+  .timer{
+    font-size: 36px !important;
+  }
+  .timer__button{
+    font-size: 12px !important;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 1000px){
+  .vote-controls{
+    flex-direction: column !important;
+    align-items: center;
+    &__dropdown-container{
+      width: 100% !important;
+    }
+    &__dropdown-button{
+      width: 100% !important;
+      text-align: left;
+    }
+    &__add-new-button{
+      margin: 0 !important;
+      margin-top: 0.5rem !important;
+      padding: 0.25rem 4rem;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1065px){
+  .popup__footer{
+    flex-direction: column-reverse !important;
+    .popup__color-selector{
+      align-self: center;
+      .color-selector__color{
+      }
+    }
+    .popup__actions{
+      margin-bottom: 1rem;
+    }
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px){
+  .main{
+    grid-template-columns: 2fr 3fr 2fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas: 
+      'header header header' 
+      'leaderboard leaderboard leaderboard'
+      'chat chat chat'
+      'vote-left vote-left vote-left'
+      'vote-right vote-right vote-right';
+    grid-gap: 1rem;
+    align-content: unset;
+    padding: 4%;
+  }
+
+  .main__center{
+    height: 250px;
+  }
+  
+  .vote-item{
+    justify-content: space-between !important;
+    flex-direction: row !important;
+    padding: 2rem 3rem !important;
+    &--placeholder{
+      justify-content: inherit !important;
+    }
+  }
 }

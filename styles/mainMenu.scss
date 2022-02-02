@@ -1,0 +1,29 @@
+.main-menu{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+  background-color: hsl(215, 15%, 20%);
+  transform: translateX(-100%);
+  z-index: 10;
+  transition: all 250ms ease-in-out;
+  .main-menu__exit-icon{
+    color: white;
+    font-size: 32px;
+    margin-left: auto;
+    margin-bottom: 2rem;
+  }
+}
+.main-menu__icon{
+  display: flex;
+  align-items: flex-start;
+  color: white;
+  font-size: 28px;
+}
+
+.main-menu__content{
+  display: flex;
+  flex-direction: column;
+}
