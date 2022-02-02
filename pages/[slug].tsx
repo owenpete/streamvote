@@ -108,12 +108,12 @@ const Home = (props: Props) => {
   }, [prefix])
 
   useEffect(()=>{
-    getWindowSize();
-    window.addEventListener('resize', getWindowSize);
-    return () => window.removeEventListener('resize', getWindowSize);
+    handleWindowSizeUpdate();
+    window.addEventListener('resize', handleWindowSizeUpdate);
+    return () => window.removeEventListener('resize', handleWindowSizeUpdate);
   }, [])
 
-  const getWindowSize = () =>{
+  const handleWindowSizeUpdate = () =>{
     const isClient = typeof window === 'object';
     setWindowSize(isClient ? window.innerWidth : undefined);
   }
