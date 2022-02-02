@@ -164,6 +164,9 @@ const NewCategoryPopup = (props: Props) =>{
                 autoFocus={true}
                 onChange={(e: any)=>handleNameUpdate(e.target.value)}
                /> 
+                <span className='popup__character-count'>
+                  {name.length} / {maxNameLength}
+                </span>
                <div className="popup__footer">
                 <div 
                   className="popup__color-selector"
