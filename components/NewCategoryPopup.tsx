@@ -72,7 +72,7 @@ const NewCategoryPopup = (props: Props) =>{
   }, [props.isCreatingNew]);
 
   const handleNameUpdate = (name: string) =>{
-    if(name.length < maxNameLength){
+    if(name.length <= maxNameLength){
       setName(name);
     }
   }
