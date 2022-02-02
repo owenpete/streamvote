@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
-import toggleDimmer from '../utils/toggleDimmer';
 
 interface Props{
   addVotingCategory: any;
@@ -13,10 +12,6 @@ interface Props{
 }
 
 const VoteControls = (props: Props) =>{
-  useEffect(()=>{
-    toggleDimmer(props.isCreatingNew);
-  }, [props.isCreatingNew])
-  
   return (
     <div className='vote-controls'>
       <div className='vote-controls__dropdown-container'>

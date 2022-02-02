@@ -13,7 +13,6 @@ import VoteItem from '../components/VoteItem';
 import MainMenu from '../components/MainMenu';
 
 import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, tmiGetMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix, tmiSetCategory, tmiGetCurrentChannel, tmiSetCurrentChannel, tmiConnect, tmiGetReadyState, tmiDisconnect } from '../utils/tmi'; 
-import toggleDimmer from '../utils/toggleDimmer';
 import { FiEdit, FiMenu } from 'react-icons/fi';
 import NewChannelPopup from '../components/NewChannelPopup';
 

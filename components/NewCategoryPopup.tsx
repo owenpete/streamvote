@@ -2,6 +2,7 @@ import { StringifyOptions } from 'querystring';
 import { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import { GiConsoleController, GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
+import toggleDimmer from '../utils/toggleDimmer';
 
 interface Props{
   isCreatingNew: boolean;
@@ -66,7 +67,9 @@ const NewCategoryPopup = (props: Props) =>{
       setName(props.votingCategories[props.slotIndex].name)
       setColor(props.votingCategories[props.slotIndex].color)
       setIsEditing(true);
-    }  }, [props.isCreatingNew])
+    }  
+    toggleDimmer(props.isCreatingNew);
+  }, [props.isCreatingNew]);
 
   const handleNameUpdate = (name: string) =>{
     if(name.length < maxNameLength){
