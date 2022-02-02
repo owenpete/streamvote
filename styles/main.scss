@@ -129,7 +129,6 @@
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 700px){
   .main__header{
-    margin-top: 0.5rem;
     grid-gap: 0;
     grid-template-areas: 
       'header-left channelName ...' 
