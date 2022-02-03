@@ -74,10 +74,12 @@ const MainMenu = (props: Props) =>{
           }
         </select>
       </div>
+      <label className='prefix__label' htmlFor='prefix-input'>Prefix:</label>
       <div className='main-menu__prefix-container'>
         <div className='prefix__input-container'>
           <input 
             className='prefix__input'
+            id='prefix-input'
             onChange={(e: any)=>handlePrefixChange(e.target.value, localPrefix)}
             value={localPrefix}
             type='text'
