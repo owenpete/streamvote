@@ -35,8 +35,10 @@ const MainMenu = (props: Props) =>{
   }
 
   const handlePrefixChange = (newPrefix: string, currentPrefix: string) =>{
-    if(currentPrefix.length < maxPrefixLength || newPrefix == ''){
-      setLocalPrefix(newPrefix);
+    if(currentPrefix.length < maxPrefixLength){
+      setLocalPrefix(newPrefix[0]);
+    }else if(newPrefix == ''){
+      setLocalPrefix('');
     }
   }
 
