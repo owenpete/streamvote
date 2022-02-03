@@ -154,6 +154,15 @@
     width: 100%;
     overflow: scroll hidden;
   }
+  .new-channel-popup__input{
+    padding: 1rem 1.5rem !important;
+    .new-channel-popup__text-input{
+      font-size: 18px !important;
+    }
+    .new-channel-popup__confirm-icon{
+      font-size: 32px !important;
+    }
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -210,5 +219,8 @@
     &--placeholder{
       justify-content: inherit !important;
     }
+  }
+  .new-channel-popup__input{
+    width: 80% !important;
   }
 }
