@@ -8,6 +8,7 @@ interface Props{
   categoryCount: number;
   resetVoteCount: any;
   removeCategory: any;
+  prefix: string;
 }
 
 const VoteItem = (props: Props) =>{
@@ -44,7 +45,7 @@ const VoteItem = (props: Props) =>{
               color: `${props.categoryData.color.name == 'black'? 'white' : 'black'}`,
               }}
           >
-            {props.categoryData.name}
+            {props.prefix}{props.categoryData.name}
           </span>
           <span 
             className='vote-item__votes'

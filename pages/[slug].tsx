@@ -302,6 +302,7 @@ const Home = (props: Props) => {
                   categoryCount={categoryGridSize}
                   resetVoteCount={resetVoteCount}
                   removeCategory={removeCategory}
+                  prefix={prefix}
                 />
               );
             })
@@ -326,6 +327,7 @@ const Home = (props: Props) => {
                   categoryCount={categoryGridSize}
                   resetVoteCount={resetVoteCount}
                   removeCategory={removeCategory}
+                  prefix={prefix}
                 />
               )
             })
