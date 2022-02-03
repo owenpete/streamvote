@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
-import { FiChevronDown, FiX } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
+import { FiChevronDown, FiX, FiCheck, FiRotateCw } from 'react-icons/fi';
 import toggleDimmer from '../utils/toggleDimmer';
 
 interface Props{
   isOpen: boolean;
   setIsOpen: any;
+  prefix: string;
+  setPrefix: any;
 
   addVotingCategory: any;
   setIsCreatingNew: any;
@@ -16,6 +18,8 @@ interface Props{
 }
 
 const MainMenu = (props: Props) =>{
+  const [localPrefix, setLocalPrefix] = useState<string>(props.prefix);
+  const maxPrefixLength: number = 1;
   useEffect(()=>{
     toggleDimmer(props.isOpen);
     handleMenuOpen(props.isOpen);
@@ -28,6 +32,16 @@ const MainMenu = (props: Props) =>{
     }else{
       menuElement.style.transform = 'translate(-100%)';
     }
+  }
+
+  const handlePrefixChange = (newPrefix: string, currentPrefix: string) =>{
+    if(currentPrefix.length < maxPrefixLength || newPrefix == ''){
+      setLocalPrefix(newPrefix);
+    }
+  }
+
+  const handlePrefixSubmit = (prefix: string) =>{
+    props.setPrefix(prefix);
   }
 
   return (
@@ -57,6 +71,38 @@ const MainMenu = (props: Props) =>{
             })
           }
         </select>
+      </div>
+      <div className='main-menu__prefix-container'>
+        <div className='prefix__input-container'>
+          <input 
+            className='prefix__input'
+            onChange={(e: any)=>handlePrefixChange(e.target.value, localPrefix)}
+            value={localPrefix}
+            type='text'
+            placeholder='Leave empty for no prefix'
+          />
+          <span className='prefix__character-count'>
+            {localPrefix.length}/{maxPrefixLength}
+          </span>
+        </div>
+        <div className='prefix__actions'>
+          <div 
+            className={`prefix__container-confirm prefix__icon-container ${props.prefix == localPrefix ? 'prefix--default' : ''}`}
+          >
+            <FiCheck
+              className='prefix__confirm prefix__icon'
+              onClick={(e: any)=>handlePrefixSubmit(localPrefix)}
+            />
+          </div>
+          <div 
+            className={`prefix__container-reset prefix__icon-container ${props.prefix == localPrefix ? 'prefix--default' : ''}`}
+          >
+            <FiRotateCw
+              className='prefix__reset prefix__icon'
+              onClick={(e: any)=>setLocalPrefix(props.prefix)}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

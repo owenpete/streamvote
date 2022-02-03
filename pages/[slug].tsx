@@ -217,6 +217,8 @@ const Home = (props: Props) => {
       <MainMenu 
         isOpen={isMenuOpen}
         setIsOpen={setIsMenuOpen}
+        prefix={prefix}
+        setPrefix={setPrefix}
         addVotingCategory={addVotingCategoryAtIndex}
         setIsCreatingNew={setIsCreatingNew}
         isCreatingNew={isCreatingNew}
