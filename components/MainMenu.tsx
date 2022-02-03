@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { FiChevronDown, FiX } from 'react-icons/fi';
+import toggleDimmer from '../utils/toggleDimmer';
 
 interface Props{
   isOpen: boolean;
@@ -16,6 +17,7 @@ interface Props{
 
 const MainMenu = (props: Props) =>{
   useEffect(()=>{
+    toggleDimmer(props.isOpen);
     handleMenuOpen(props.isOpen);
   }, [props.isOpen]);
   

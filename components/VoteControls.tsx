@@ -14,8 +14,8 @@ interface Props{
 const VoteControls = (props: Props) =>{
   return (
     <div className='vote-controls'>
-      <div className='vote-controls__dropdown-container'>
-        <input className='vote-controls__dropdown-button' value={`# of categories: ${props.categoryCount}`} type='button' />
+      {/* <div className='vote-controls__dropdown-container'>
+        <input className='vote-controls__dropdown-button' value={`${props.categoryCount}`} type='button' />
         <FiChevronDown className='vote-controls__dropdown-arrow' />
         <select
           name='catagories'
@@ -32,7 +32,7 @@ const VoteControls = (props: Props) =>{
             })
           }
         </select>
-      </div>
+      </div> */}
       <input 
         className='vote-controls__add-new-button'
         type="button"

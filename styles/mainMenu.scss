@@ -3,7 +3,7 @@
   flex-direction: column;
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 400px;
   padding: 2rem;
   background-color: hsl(215, 15%, 20%);
   transform: translateX(-100%);
@@ -15,12 +15,6 @@
     margin-left: auto;
     margin-bottom: 2rem;
   }
-}
-.main-menu__icon{
-  display: flex;
-  align-items: flex-start;
-  color: white;
-  font-size: 26px;
 }
 
 .main-menu__content{

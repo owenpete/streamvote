@@ -244,22 +244,21 @@ const Home = (props: Props) => {
       <div className="main">
         <div className='main__header'>
           <div className='main__header-left'>
-            {windowSize! > 700 ?
-              <VoteControls 
-                addVotingCategory={addVotingCategoryAtIndex}
-                setIsCreatingNew={setIsCreatingNew}
-                isCreatingNew={isCreatingNew}
-                categoryCount={categoryGridSize}
-                setCategoryCount={setCategoryGridSize}
-                categoryOptions={categoryOptions}
-                handleFilter={handleFilter}
-              />
-              :
               <FiSettings 
-                className='main-menu__icon' 
+                className='main__settings-icon' 
                 onClick={(e: any)=>setIsMenuOpen(true)}
               />
-            }
+              {windowSize! > 700 &&
+                <VoteControls 
+                  addVotingCategory={addVotingCategoryAtIndex}
+                  setIsCreatingNew={setIsCreatingNew}
+                  isCreatingNew={isCreatingNew}
+                  categoryCount={categoryGridSize}
+                  setCategoryCount={setCategoryGridSize}
+                  categoryOptions={categoryOptions}
+                  handleFilter={handleFilter}
+                />
+              }
           </div>
           <Timer
             isTimerRunning={isTimerRunning}

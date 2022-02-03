@@ -37,6 +37,12 @@
     width: 100%;
     grid-area: header;
   }
+  .main__settings-icon{
+    display: flex;
+    align-items: flex-start;
+    color: white;
+    font-size: 28px;
+  }
   &__vote-container{
     position: relative;
     display: flex;
@@ -94,8 +100,10 @@
 
 .main__header-left{
   display: flex;
-  align-items: flex-start;
+  justify-content: flex-end;
+  align-items: center;
   width: 100%;
+  height: fit-content;
   grid-area: header-left;
 }
 
@@ -124,6 +132,9 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .main-menu{
+    width: 100% !important;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -157,23 +168,6 @@
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (max-width: 1000px){
-  .vote-controls{
-    flex-direction: column !important;
-    align-items: center;
-    &__dropdown-container{
-      width: 100% !important;
-    }
-    &__dropdown-button{
-      width: 100% !important;
-      text-align: left;
-    }
-    &__add-new-button{
-      margin: 0 !important;
-      margin-top: 0.5rem !important;
-      padding: 0.25rem 4rem;
-      width: 100%;
-    }
-  }
 }
 
 @media only screen and (max-width: 1065px){
