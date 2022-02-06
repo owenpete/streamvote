@@ -46,6 +46,16 @@ const MainMenu = (props: Props) =>{
     props.setPrefix(prefix);
   }
 
+  const submitPrefix = () =>{
+    props.setPrefix(localPrefix);
+  }
+
+  const handleKeyDown = (key: string) =>{
+    if(key == 'Enter'){
+      submitPrefix();
+    }
+  }
+
   return (
     <div className='main-menu' id='menu'>
       <FiX 
@@ -81,6 +91,7 @@ const MainMenu = (props: Props) =>{
             className='prefix__input'
             id='prefix-input'
             onChange={(e: any)=>handlePrefixChange(e.target.value, localPrefix)}
+            onKeyDownCapture={(e: any)=>handleKeyDown(e.key)}
             value={localPrefix}
             type='text'
             placeholder='Leave empty for no prefix'
