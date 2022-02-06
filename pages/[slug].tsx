@@ -300,6 +300,7 @@ const Home = (props: Props) => {
         </div>
         <Leaderboard 
           leaderboard={leaderboard.slice(0, 3)}
+          isVoting={isVoting}
         />
         <div className='main__left main__vote-container'>
           {
