@@ -51,7 +51,7 @@ const MainMenu = (props: Props) =>{
   }
 
   const handleKeyDown = (key: string) =>{
-    if(key == 'Enter'){
+    if(key == 'Enter' && props.prefix != localPrefix){
       submitPrefix();
     }
   }
