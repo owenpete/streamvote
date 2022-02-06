@@ -15,6 +15,7 @@ import MainMenu from '../components/MainMenu';
 import { tmiGetCategories, tmiAddCategory, tmiAddCategoryAtIndex, tmiRemoveCategory, tmiGetMessages, tmiSetIsVoting, tmiGetIsVoting, tmiSetPrefix, tmiSetCategory, tmiGetCurrentChannel, tmiSetCurrentChannel, tmiConnect, tmiGetReadyState, tmiDisconnect } from '../utils/tmi'; 
 import { FiEdit, FiMenu, FiSettings } from 'react-icons/fi';
 import NewChannelPopup from '../components/NewChannelPopup';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props{
   channel: string;
@@ -136,6 +137,10 @@ const Home = (props: Props) => {
 
   const addVotingCategoryAtIndex = (category: Category, slotIndex: number) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
+    category = {
+      ...category,
+      id: uuidv4()
+    }
     if(!isFull){
       // place/replace category at index
       setVotingCategories([
