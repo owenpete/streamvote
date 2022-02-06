@@ -316,6 +316,8 @@ const Home = (props: Props) => {
                   resetVoteCount={resetVoteCount}
                   removeCategory={removeCategory}
                   prefix={prefix}
+                  isWinning={category?.id == leaderboard[0]?.id}
+                  isVoting={isVoting}
                 />
               );
             })
@@ -341,6 +343,8 @@ const Home = (props: Props) => {
                   resetVoteCount={resetVoteCount}
                   removeCategory={removeCategory}
                   prefix={prefix}
+                  isWinning={category?.id == leaderboard[0]?.id}
+                  isVoting={isVoting}
                 />
               )
             })

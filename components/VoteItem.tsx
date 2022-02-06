@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FiPlus, FiRotateCw, FiSettings, FiTrash } from 'react-icons/fi';
+import { FaCrown } from 'react-icons/fa';
 
 interface Props{
   categoryData: any;
@@ -9,6 +10,8 @@ interface Props{
   resetVoteCount: any;
   removeCategory: any;
   prefix: string;
+  isWinning: boolean;
+  isVoting: boolean;
 }
 
 const VoteItem = (props: Props) =>{
@@ -25,6 +28,14 @@ const VoteItem = (props: Props) =>{
             fontSize: `${props.categoryCount > 6? '46px' : '54px'}`
          }}
         >
+          {props.isWinning && !props.isVoting &&
+            <div className='vote-item__crown-container'>
+              <FaCrown 
+                className='vote-item__crown' 
+                style={{color: `${props.categoryData.color.name == 'yellow' ? 'black' : 'gold'}`}}
+              />
+            </div>
+          }
           <div className={`vote-item__hover`}>
             <FiSettings 
               className='hover__icon'
