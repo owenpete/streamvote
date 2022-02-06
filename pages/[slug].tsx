@@ -25,10 +25,11 @@ interface ChatData{
 }
 
 interface Category{
-  name: string, 
-  color: string, 
-  votes: [], 
-  regexlistener: string
+  name: string;
+  color: string;
+  votes: [] 
+  regexlistener: string;
+  id: string;
 }
 
 export const getServerSideProps = async({ query }: { query: any }) =>{
