@@ -54,6 +54,7 @@ const Home = (props: Props) => {
   const [isVoting, setIsVoting] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [prefix, setPrefix] = useState<string>('#');
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const categoryOptions = [2, 4, 6, 8];
 
   const [categoryGridSize, setCategoryGridSize] = useState<any>(categoryOptions[0]);
@@ -72,9 +73,14 @@ const Home = (props: Props) => {
   }
 
   useEffect(()=>{
+    const lsPrefix = window.localStorage.getItem('prefix');
+    if(lsPrefix != null){
+      setPrefix(lsPrefix);
+    }
     setCurrentChannel(props.channel);
     tmiSetCurrentChannel(props.channel);
     tmiConnect();
+    setIsLoaded(true);
   }, []);
 
   useEffect(()=>{
@@ -114,6 +120,7 @@ const Home = (props: Props) => {
 
   useEffect(()=>{
     tmiSetPrefix(prefix);
+    setLsPrefix(prefix);
   }, [prefix])
 
   useEffect(()=>{
@@ -219,6 +226,10 @@ const Home = (props: Props) => {
     return re;
   }
 
+  const setLsPrefix = (prefix: string) =>{
+    window.localStorage.setItem('prefix', prefix);
+  }
+
   return (
     <div className='main-wrapper'>
       <Head>
@@ -227,131 +238,135 @@ const Home = (props: Props) => {
         <meta name="viewport" content="width=device-width, maximum-scale=1, maximum-scale=1.0, user-scalable=0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainMenu 
-        isOpen={isMenuOpen}
-        setIsOpen={setIsMenuOpen}
-        prefix={prefix}
-        setPrefix={setPrefix}
-        addVotingCategory={addVotingCategoryAtIndex}
-        setIsCreatingNew={setIsCreatingNew}
-        isCreatingNew={isCreatingNew}
-        categoryCount={categoryGridSize}
-        setCategoryCount={setCategoryGridSize}
-        categoryOptions={categoryOptions}
-        handleFilter={handleFilter}
-      />
-      <NewCategoryPopup 
-        isCreatingNew={isCreatingNew}
-        setIsCreatingNew={setIsCreatingNew}
-        votingCategories={votingCategories}
-        addVotingCategoryAtIndex={addVotingCategoryAtIndex}
-        updateVotingCategory={updateVotingCategory}
-        pushVotingCategory={pushVotingCategory}
-        createRegexListener={createRegexListener}
-        slotIndex={slotIndex}
-        setSlotIndex={setSlotIndex}
-      />
-      <NewChannelPopup 
-        setCurrentChannel={setCurrentChannel}
-        isSettingNewChannel={isSettingNewChannel}
-        setIsSettingNewChannel={setIsSettingNewChannel}
-      />
-      <div className="main">
-        <div className='main__header'>
-          <div className='main__header-left'>
-              <FiSettings 
-                className='main__settings-icon' 
-                onClick={(e: any)=>setIsMenuOpen(true)}
-              />
-              {windowSize! > 700 &&
-                <VoteControls 
-                  addVotingCategory={addVotingCategoryAtIndex}
-                  setIsCreatingNew={setIsCreatingNew}
-                  isCreatingNew={isCreatingNew}
-                  categoryCount={categoryGridSize}
-                  setCategoryCount={setCategoryGridSize}
-                  categoryOptions={categoryOptions}
-                  handleFilter={handleFilter}
-                />
-              }
-          </div>
-          <Timer
-            isTimerRunning={isTimerRunning}
-            setIsTimerRunning={setIsTimerRunning}
-            isVoting={isVoting}
-            setIsVoting={setIsVoting}
+      { isLoaded &&
+        <>
+          <MainMenu 
+            isOpen={isMenuOpen}
+            setIsOpen={setIsMenuOpen}
+            prefix={prefix}
+            setPrefix={setPrefix}
+            addVotingCategory={addVotingCategoryAtIndex}
+            setIsCreatingNew={setIsCreatingNew}
+            isCreatingNew={isCreatingNew}
+            categoryCount={categoryGridSize}
+            setCategoryCount={setCategoryGridSize}
+            categoryOptions={categoryOptions}
+            handleFilter={handleFilter}
           />
-          <span className='main__channel-name'>
-            {windowSize! > 700&&
-              <span
-                className='channel-name__prefix'
-              >
-                  Current Channel:
+          <NewCategoryPopup 
+            isCreatingNew={isCreatingNew}
+            setIsCreatingNew={setIsCreatingNew}
+            votingCategories={votingCategories}
+            addVotingCategoryAtIndex={addVotingCategoryAtIndex}
+            updateVotingCategory={updateVotingCategory}
+            pushVotingCategory={pushVotingCategory}
+            createRegexListener={createRegexListener}
+            slotIndex={slotIndex}
+            setSlotIndex={setSlotIndex}
+          />
+          <NewChannelPopup 
+            setCurrentChannel={setCurrentChannel}
+            isSettingNewChannel={isSettingNewChannel}
+            setIsSettingNewChannel={setIsSettingNewChannel}
+          />
+          <div className="main">
+            <div className='main__header'>
+              <div className='main__header-left'>
+                  <FiSettings 
+                    className='main__settings-icon' 
+                    onClick={(e: any)=>setIsMenuOpen(true)}
+                  />
+                  {windowSize! > 700 &&
+                    <VoteControls 
+                      addVotingCategory={addVotingCategoryAtIndex}
+                      setIsCreatingNew={setIsCreatingNew}
+                      isCreatingNew={isCreatingNew}
+                      categoryCount={categoryGridSize}
+                      setCategoryCount={setCategoryGridSize}
+                      categoryOptions={categoryOptions}
+                      handleFilter={handleFilter}
+                    />
+                  }
+              </div>
+              <Timer
+                isTimerRunning={isTimerRunning}
+                setIsTimerRunning={setIsTimerRunning}
+                isVoting={isVoting}
+                setIsVoting={setIsVoting}
+              />
+              <span className='main__channel-name'>
+                {windowSize! > 700&&
+                  <span
+                    className='channel-name__prefix'
+                  >
+                      Current Channel:
+                  </span>
+                }
+                <span 
+                  className='channel-name__name'
+                  onClick={(e: any)=>{setIsSettingNewChannel(true)}}
+                >
+                  {currentChannel}
+                  <FiEdit className='name__edit-icon'/>
+                </span>
               </span>
-            }
-            <span 
-              className='channel-name__name'
-              onClick={(e: any)=>{setIsSettingNewChannel(true)}}
-            >
-              {currentChannel}
-              <FiEdit className='name__edit-icon'/>
-            </span>
-          </span>
-        </div>
-        <Leaderboard 
-          leaderboard={leaderboard.slice(0, 3)}
-          isVoting={isVoting}
-        />
-        <div className='main__left main__vote-container'>
-          {
-            Array.from(Array(Math.ceil(categoryGridSize/2))).map((value: any, index: number)=>{
-              const location = index+index+1;
-              const category = votingCategories[location];
-              return (
-                <VoteItem 
-                  key={index}
-                  openPopup={openPopup}
-                  categoryData={category}
-                  index={location}
-                  categoryCount={categoryGridSize}
-                  resetVoteCount={resetVoteCount}
-                  removeCategory={removeCategory}
-                  prefix={prefix}
-                  isWinning={category?.id == leaderboard[0]?.id}
-                  isVoting={isVoting}
-                />
-              );
-            })
-          }
-        </div>
-        <div className="main__center">
-          <ChatBox 
-            chatData={chatData}
-          /> 
-        </div>
-        <div className='main__right main__vote-container'>
-          {
-            Array.from(Array(Math.floor(categoryGridSize/2))).map((value: any, index: number)=>{
-              const location = index*2;
-              const category = votingCategories[location];
-              return(
-                <VoteItem 
-                  key={index}
-                  openPopup={openPopup}
-                  categoryData={category}
-                  index={location}
-                  categoryCount={categoryGridSize}
-                  resetVoteCount={resetVoteCount}
-                  removeCategory={removeCategory}
-                  prefix={prefix}
-                  isWinning={category?.id == leaderboard[0]?.id}
-                  isVoting={isVoting}
-                />
-              )
-            })
-          }
-        </div>
-      </div>
+            </div>
+            <Leaderboard 
+              leaderboard={leaderboard.slice(0, 3)}
+              isVoting={isVoting}
+            />
+            <div className='main__left main__vote-container'>
+              {
+                Array.from(Array(Math.ceil(categoryGridSize/2))).map((value: any, index: number)=>{
+                  const location = index+index+1;
+                  const category = votingCategories[location];
+                  return (
+                    <VoteItem 
+                      key={index}
+                      openPopup={openPopup}
+                      categoryData={category}
+                      index={location}
+                      categoryCount={categoryGridSize}
+                      resetVoteCount={resetVoteCount}
+                      removeCategory={removeCategory}
+                      prefix={prefix}
+                      isWinning={category?.id == leaderboard[0]?.id}
+                      isVoting={isVoting}
+                    />
+                  );
+                })
+              }
+            </div>
+            <div className="main__center">
+              <ChatBox 
+                chatData={chatData}
+              /> 
+            </div>
+            <div className='main__right main__vote-container'>
+              {
+                Array.from(Array(Math.floor(categoryGridSize/2))).map((value: any, index: number)=>{
+                  const location = index*2;
+                  const category = votingCategories[location];
+                  return(
+                    <VoteItem 
+                      key={index}
+                      openPopup={openPopup}
+                      categoryData={category}
+                      index={location}
+                      categoryCount={categoryGridSize}
+                      resetVoteCount={resetVoteCount}
+                      removeCategory={removeCategory}
+                      prefix={prefix}
+                      isWinning={category?.id == leaderboard[0]?.id}
+                      isVoting={isVoting}
+                    />
+                  )
+                })
+              }
+            </div>
+          </div>
+        </>
+      }
     </div>
   )
 }
