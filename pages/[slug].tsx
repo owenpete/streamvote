@@ -56,6 +56,7 @@ const Home = (props: Props) => {
   const [prefix, setPrefix] = useState<string>('#');
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const categoryOptions = [2, 4, 6, 8];
+  const maxPrefixLength: number = 1;
 
   const [categoryGridSize, setCategoryGridSize] = useState<any>(categoryOptions[0]);
   const [windowSize, setWindowSize] = useState<number>();
@@ -226,6 +227,14 @@ const Home = (props: Props) => {
     return re;
   }
 
+  const handlePrefixChange = (newPrefix: string, currentPrefix: string, setPrefix: any, maxPrefixLength: number) =>{
+    if(currentPrefix.length < maxPrefixLength){
+      setPrefix(newPrefix[0]);
+    }else if(newPrefix == ''){
+      setPrefix('');
+    }
+  }
+
   const setLsPrefix = (prefix: string) =>{
     window.localStorage.setItem('prefix', prefix);
   }
@@ -252,6 +261,8 @@ const Home = (props: Props) => {
             setCategoryCount={setCategoryGridSize}
             categoryOptions={categoryOptions}
             handleFilter={handleFilter}
+            maxPrefixLength={maxPrefixLength}
+            handlePrefixChange={handlePrefixChange}
           />
           <NewCategoryPopup 
             isCreatingNew={isCreatingNew}
@@ -263,6 +274,10 @@ const Home = (props: Props) => {
             createRegexListener={createRegexListener}
             slotIndex={slotIndex}
             setSlotIndex={setSlotIndex}
+            prefix={prefix}
+            setPrefix={setPrefix}
+            handlePrefixChange={handlePrefixChange}
+            maxPrefixLength={maxPrefixLength}
           />
           <NewChannelPopup 
             setCurrentChannel={setCurrentChannel}

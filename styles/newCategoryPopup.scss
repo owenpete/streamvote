@@ -32,16 +32,6 @@
     .header__exit{
     }
   }
-  .popup__name{
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    font-size: 16px;
-    color: white;
-    background-color: hsl(215, 15%, 35%);
-    padding: 1rem 1.5rem;
-  }
 
   .popup__character-count{
     font-size: 12px;
@@ -131,5 +121,27 @@
     flex-direction: row;
     width: 100%;
     margin-top: auto;
+  }
+}
+
+.popup__title-input-container{
+  display: flex;
+  .popup__input{
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: white;
+    background-color: hsl(215, 15%, 35%);
+  }
+  .popup__name{
+    width: 100%;
+    border-radius: 0 5px 5px 0;
+    padding: 1rem 1.5rem;
+  }
+  .popup__prefix{
+    width: 50px;
+    border-radius: 5px 0 0 5px;
+    border-right: 1px solid black;
+    text-align: center;
   }
 }

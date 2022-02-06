@@ -15,30 +15,27 @@ interface Props{
   setCategoryCount: any;
   categoryOptions: any;
   handleFilter: any;
+  maxPrefixLength: number;
+  handlePrefixChange: (newPrefix: string, currentPrefix: string, setPrefix: any, maxPrefixLength: number)=>void;
 }
 
 const MainMenu = (props: Props) =>{
   const [localPrefix, setLocalPrefix] = useState<string>(props.prefix);
-  const maxPrefixLength: number = 1;
   useEffect(()=>{
     toggleDimmer(props.isOpen);
     handleMenuOpen(props.isOpen);
   }, [props.isOpen]);
   
+  useEffect(()=>{
+    setLocalPrefix(props.prefix);
+  }, [props.prefix])
+
   const handleMenuOpen = (isOpen: boolean) =>{
     const menuElement: any = document.getElementById('menu'); 
     if(isOpen){
       menuElement.style.transform = 'translate(0)';
     }else{
       menuElement.style.transform = 'translate(-100%)';
-    }
-  }
-
-  const handlePrefixChange = (newPrefix: string, currentPrefix: string) =>{
-    if(currentPrefix.length < maxPrefixLength){
-      setLocalPrefix(newPrefix[0]);
-    }else if(newPrefix == ''){
-      setLocalPrefix('');
     }
   }
 
@@ -90,14 +87,14 @@ const MainMenu = (props: Props) =>{
           <input 
             className='prefix__input'
             id='prefix-input'
-            onChange={(e: any)=>handlePrefixChange(e.target.value, localPrefix)}
+            onChange={(e: any)=>props.handlePrefixChange(e.target.value, localPrefix, setLocalPrefix, props.maxPrefixLength)}
             onKeyDownCapture={(e: any)=>handleKeyDown(e.key)}
             value={localPrefix}
             type='text'
             placeholder='Leave empty for no prefix'
           />
           <span className='prefix__character-count'>
-            {localPrefix.length}/{maxPrefixLength}
+            {localPrefix.length}/{props.maxPrefixLength}
           </span>
         </div>
         <div className='prefix__actions'>

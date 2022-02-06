@@ -14,6 +14,10 @@ interface Props{
   createRegexListener: any;
   slotIndex: number | undefined;
   setSlotIndex: any;
+  prefix: string;
+  setPrefix: any;
+  handlePrefixChange: (newPrefix: string, currentPrefix: string, setPrefix: any, maxPrefixLength: number)=>void;
+  maxPrefixLength: number;
 }
 
 const NewCategoryPopup = (props: Props) =>{
@@ -165,15 +169,24 @@ const NewCategoryPopup = (props: Props) =>{
                   onClick={()=>handlePopupClose()}
                 />
               </div>
-              <input 
-                type="text" 
-                className="popup__name"
-                placeholder='Title'
-                value={name}
-                autoFocus={true}
-                onChange={(e: any)=>handleNameUpdate(e.target.value)}
-                onKeyDownCapture={(e: any)=>{handleKeyDown(e.key)}}
-               /> 
+              <div className='popup__title-input-container'>
+                <input
+                  type='text'
+                  className='popup__prefix popup__input'
+                  placeholder=''
+                  value={props.prefix}
+                  onChange={(e: any)=>props.handlePrefixChange(e.target.value, props.prefix, props.setPrefix, props.maxPrefixLength)}
+                />
+                <input 
+                  type="text" 
+                  className="popup__name popup__input"
+                  placeholder='Title'
+                  value={name}
+                  autoFocus={true}
+                  onChange={(e: any)=>handleNameUpdate(e.target.value)}
+                  onKeyDownCapture={(e: any)=>{handleKeyDown(e.key)}}
+                /> 
+              </div>
                 <span className='popup__character-count'>
                   {name.length} / {maxNameLength}
                 </span>
