@@ -113,6 +113,16 @@ const TimerDisplay = (props: TimerDisplayProps) =>{
     return total;
   }
 
+  const handleTimerFocus = () =>{
+    setIsEditingFocus(true);
+    setIsEditing(true);
+  }
+
+  const handleTimerBlur = () =>{
+    setIsEditingFocus(false);
+    setIsEditing(false);
+  }
+
   return (
     <span 
       className='timer__display'
@@ -145,8 +155,8 @@ const TimerDisplay = (props: TimerDisplayProps) =>{
         type='text'
         ref={timeInputRef}
         onKeyDownCapture={(e: any)=>handleTimeChange(e.nativeEvent.key)}
-        onFocus={(e: any)=>setIsEditingFocus(true)}
-        onBlur={(e: any)=>setIsEditingFocus(false)}
+        onFocus={(e: any)=>handleTimerFocus()}
+        onBlur={(e: any)=>handleTimerBlur()}
       />
     </span>
   )
