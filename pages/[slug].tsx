@@ -44,7 +44,7 @@ const Home = (props: Props) => {
   const [slotIndex, setSlotIndex] = useState<number | undefined>(undefined);
   const [isVoting, setIsVoting] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
-  const [prefix, setPrefix] = useState<string>('');
+  const [prefix, setPrefix] = useState<string>('#');
   const categoryOptions = [2, 4, 6, 8];
 
   const [categoryGridSize, setCategoryGridSize] = useState<any>(categoryOptions[0]);
