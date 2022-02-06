@@ -12,6 +12,7 @@ interface TimerDisplayProps{
   timer: number;
   setTimer: any;
   isTimerRunning: boolean;
+  initTime: any;
 }
 
 const TimerDisplay = (props: TimerDisplayProps) =>{
@@ -103,6 +104,7 @@ const TimerDisplay = (props: TimerDisplayProps) =>{
       }
       const total = convertStringToSeconds(hmsArray);
       props.setTimer(total);
+      props.initTime.current = total;
   }
 
   const convertStringToSeconds = (hms: string[]) =>{
@@ -164,6 +166,7 @@ const TimerDisplay = (props: TimerDisplayProps) =>{
 
 const Timer = (props: TimerProps) =>{
   const [timer, setTimer] = useState<number>(300);
+  const initTime = useRef(timer);
 
   useEffect(()=>{
     let timerInterval: any;
@@ -195,29 +198,44 @@ const Timer = (props: TimerProps) =>{
     }
   }
 
+  const handleReset = () =>{
+    setTimer(initTime.current);
+    props.setIsTimerRunning(false);
+    props.setIsVoting(false)
+  }
+
   return (
     <div className="timer">
       <TimerDisplay
         timer={timer}
         setTimer={setTimer}
         isTimerRunning={props.isTimerRunning}
+        initTime={initTime}
       />
-      {
-        props.isTimerRunning?
+      <div className='timer__actions'>
+        {
+          props.isTimerRunning?
+          <input 
+            type='button'
+            value='Stop'
+            className='timer__stop timer__button'
+            onClick={()=>handleTimerButtonClick('stop')}
+          />
+          :
+          <input 
+            type='button'
+            value='Start'
+            className='timer__start timer__button'
+            onClick={()=>handleTimerButtonClick('start')}
+          />
+        }
         <input 
           type='button'
-          value='Stop'
-          className='timer__stop timer__button'
-          onClick={()=>handleTimerButtonClick('stop')}
+          value='Reset'
+          className='timer__reset timer__button'
+          onClick={()=>handleReset()}
         />
-        :
-        <input 
-          type='button'
-          value='Start'
-          className='timer__start timer__button'
-          onClick={()=>handleTimerButtonClick('start')}
-        />
-      }
+      </div>
     </div>
   );
 }
