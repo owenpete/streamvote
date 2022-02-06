@@ -18,6 +18,7 @@ const Leaderboard = (props: Props) =>{
                 key={index}
               >
                 <span className='item__number'>{index+1}.</span>{value.name}
+                <span className='item__votes'>{value.votes.length}</span>
               </li>
           )
         })

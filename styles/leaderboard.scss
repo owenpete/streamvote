@@ -7,6 +7,8 @@
   min-height: 120px;
   max-height: 120px;
   &__item{
+    display: flex;
+    align-items: center;
     color: white;
     font-size: 16px;
     width: 100%;
@@ -24,11 +26,15 @@
     &:nth-child(3){
       color: #cd7f32;
     }
+    &:last-child{
+      margin: 0;
+    }
     .item__number{
       margin-right: 0.5rem;
     }
-    &:last-child{
-      margin: 0;
+    .item__votes{
+      color: white;
+      margin-left: auto;
     }
   }
 }
