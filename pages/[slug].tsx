@@ -24,6 +24,13 @@ interface ChatData{
   messages: any[];
 }
 
+interface Category{
+  name: string, 
+  color: string, 
+  votes: [], 
+  regexlistener: string
+}
+
 export const getServerSideProps = async({ query }: { query: any }) =>{
   const channel: string = query.slug;
   return {
@@ -126,7 +133,7 @@ const Home = (props: Props) => {
     );
   }
 
-  const addVotingCategoryAtIndex = (category: { name: string, color: string, votes: [], regexListener: string }, slotIndex: number) =>{
+  const addVotingCategoryAtIndex = (category: Category, slotIndex: number) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
     if(!isFull){
       // place/replace category at index
@@ -141,7 +148,7 @@ const Home = (props: Props) => {
     }
   }
 
-  const pushVotingCategory = (category: { name: string, color: string, votes: [], regexListener: string }) =>{
+  const pushVotingCategory = (category: Category) =>{
     const isFull = votingCategories.indexOf(undefined) == -1;
     const emptyIndex = votingCategories.indexOf(undefined);
     if(isFull && categoryOptions.length != categoryOptions.indexOf(categoryGridSize)){
