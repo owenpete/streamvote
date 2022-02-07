@@ -236,7 +236,7 @@ const Home = (props: Props) => {
   }
 
   const replacePrefix = (prefix: string) =>{
-    setPrefix(prefix[0]);    
+    setPrefix(prefix.slice(0, 1));    
   }
 
   const setLsPrefix = (prefix: string) =>{
