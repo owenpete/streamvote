@@ -21,16 +21,35 @@
     min-height: 30px;
     border: none;
     border-radius: 5px;
+    transition: all 50ms ease-in-out;
   }
   .timer__start{
-    background-color: rgb(107, 209, 145);
+    background-color: hsl(142, 53%, 62%);
+    &:hover{
+      background-color: hsl(142, 53%, 67%);
+    }
+    &:active{
+      background-color: hsl(142, 53%, 62%);
+    }
   }
   .timer__stop{
     background-color: hsl(8, 100%, 67%);
+    &:hover{
+      background-color: hsl(8, 100%, 72%);
+    }
+    &:active{
+      background-color: hsl(8, 100%, 67%);
+    }
   }
   .timer__reset{
     background-color: hsl(24, 100%, 64%);
     margin-left: 0.5rem;
+    &:hover{
+      background-color: hsl(24, 100%, 70%);
+    }
+    &:active{
+      background-color: hsl(24, 100%, 64%);
+    }
   }
 }
 
