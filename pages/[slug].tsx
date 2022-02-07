@@ -235,6 +235,10 @@ const Home = (props: Props) => {
     }
   }
 
+  const replacePrefix = (prefix: string) =>{
+    setPrefix(prefix[0]);    
+  }
+
   const setLsPrefix = (prefix: string) =>{
     window.localStorage.setItem('prefix', prefix);
   }
@@ -277,6 +281,7 @@ const Home = (props: Props) => {
             prefix={prefix}
             setPrefix={setPrefix}
             handlePrefixChange={handlePrefixChange}
+            replacePrefix={replacePrefix}
             maxPrefixLength={maxPrefixLength}
           />
           <NewChannelPopup 

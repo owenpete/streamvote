@@ -17,6 +17,7 @@ interface Props{
   prefix: string;
   setPrefix: any;
   handlePrefixChange: (newPrefix: string, currentPrefix: string, setPrefix: any, maxPrefixLength: number)=>void;
+  replacePrefix: (prefix: string) => void;
   maxPrefixLength: number;
 }
 
@@ -65,6 +66,7 @@ const NewCategoryPopup = (props: Props) =>{
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<{ name: string, hex: string }>({ name: '', hex: '' });
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [localPrefix, setLocalPrefix] = useState<string>(props.prefix);
 
   useEffect(()=>{
     if(props.slotIndex != undefined && props.votingCategories[props.slotIndex] != undefined){
@@ -74,6 +76,10 @@ const NewCategoryPopup = (props: Props) =>{
     }  
     toggleDimmer(props.isCreatingNew);
   }, [props.isCreatingNew]);
+
+  useEffect(()=>{
+    setLocalPrefix(props.prefix);
+  }, [props.prefix])
 
   const handleNameUpdate = (name: string) =>{
     if(name.length <= maxNameLength){
@@ -156,6 +162,13 @@ const NewCategoryPopup = (props: Props) =>{
     props.setIsCreatingNew(false);
   }
 
+  const handlePopupConfirm = () =>{
+    popupAddCategory({ name: name, color: color })
+    if(localPrefix != props.prefix){
+      props.replacePrefix(localPrefix);
+    }
+  }
+
   return (
     <>
       {
@@ -174,8 +187,8 @@ const NewCategoryPopup = (props: Props) =>{
                   type='text'
                   className='popup__prefix popup__input'
                   placeholder=''
-                  value={props.prefix}
-                  onChange={(e: any)=>props.handlePrefixChange(e.target.value, props.prefix, props.setPrefix, props.maxPrefixLength)}
+                  value={localPrefix}
+                  onChange={(e: any)=>props.handlePrefixChange(e.target.value, localPrefix, setLocalPrefix, props.maxPrefixLength)}
                 />
                 <input 
                   type="text" 
@@ -224,7 +237,7 @@ const NewCategoryPopup = (props: Props) =>{
                     type="button"
                     value='Confirm'
                     className='actions__confirm actions'
-                    onClick={()=>popupAddCategory({ name: name, color: color })}
+                    onClick={()=>handlePopupConfirm()}
                   />
                 </div>
                </div>
