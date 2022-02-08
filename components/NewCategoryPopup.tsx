@@ -163,9 +163,11 @@ const NewCategoryPopup = (props: Props) =>{
   }
 
   const handlePopupConfirm = () =>{
-    popupAddCategory({ name: name, color: color })
-    if(localPrefix != props.prefix){
-      props.replacePrefix(localPrefix);
+    if(name.replaceAll(' ', '').length != 0){
+      popupAddCategory({ name: name, color: color })
+      if(localPrefix != props.prefix){
+        props.replacePrefix(localPrefix);
+      }
     }
   }
 
