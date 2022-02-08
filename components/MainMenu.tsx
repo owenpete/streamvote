@@ -71,7 +71,6 @@ const MainMenu = (props: Props) =>{
           className='vote-controls__dropdown'
           onChange={(e)=>{
             props.handleFilter(e.target.value);
-            props.setIsOpen(false);
           }}
           value={props.categoryCount}
         >
