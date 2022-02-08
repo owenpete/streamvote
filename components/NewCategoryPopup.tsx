@@ -74,6 +74,9 @@ const NewCategoryPopup = (props: Props) =>{
       setColor(props.votingCategories[props.slotIndex].color)
       setIsEditing(true);
     }  
+    if(props.isCreatingNew && localPrefix != props.prefix){
+      setLocalPrefix(props.prefix);
+    }
     toggleDimmer(props.isCreatingNew);
   }, [props.isCreatingNew]);
 
