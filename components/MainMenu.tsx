@@ -24,6 +24,10 @@ const MainMenu = (props: Props) =>{
   useEffect(()=>{
     toggleDimmer(props.isOpen);
     handleMenuOpen(props.isOpen);
+
+    if(props.isOpen && localPrefix != props.prefix){
+      setLocalPrefix(props.prefix);
+    }
   }, [props.isOpen]);
   
   useEffect(()=>{
