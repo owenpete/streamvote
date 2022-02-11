@@ -27,7 +27,8 @@
     margin: 0;
   }
 
-  &__name, &__votes{
+  &__name{
+    word-break: break-all;
   }
   &__hover{
     display: flex;
