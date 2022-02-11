@@ -1,5 +1,5 @@
 ## About
-[Stream Vote](https://streamvote.netlify.app/) is an web app made for Twitch streamers to incorporate an interactive experience into their streams by allowing viewers to vote on varius categories, set by the host, via chat messages.
+[Stream Vote](https://streamvote.netlify.app/) is an web app made for Twitch streamers to incorporate an interactive experience into their streams by allowing viewers to vote on various categories, set by the host, via chat messages.
 
 ## How to use
 Vist the website at [streamvote.netlify.app](https://streamvote.netlify.app/)
